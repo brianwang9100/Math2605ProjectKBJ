@@ -20,14 +20,8 @@ public class MatrixAlgebra {
         return new Matrix(holder);
     }
 
-<<<<<<< Updated upstream
-
     public static Matrix dotProductMultiply(Matrix m1, Matrix m2)
         throws IllegalArgumentException {
-=======
-    public static Matrix matrixMultiply(Matrix m1, Matrix m2)
-        throws IllegalOperandException {
->>>>>>> Stashed changes
         if (m1.width() != m2.height) {
             throw new IllegalArgumentException("Cannot multiply a matrix"
                                                 + " of width " + m1.width
@@ -69,6 +63,4 @@ public class MatrixAlgebra {
         }
         return new Matrix(holder);
     }
-
-    publ
 }
