@@ -14,7 +14,7 @@ public class MatrixAlgebra {
         double[][] holder = new double[m.height][m.width];
         for (int row = 0; row < m.height; row++) {
             for (int col = 0; col < m.width; col++) {
-                holder[col][row] = m.get(row, col)
+                holder[col][row] = m.get(row, col);
             }
         }
         return new Matrix(holder);
