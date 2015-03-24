@@ -67,4 +67,42 @@ public class MatrixAlgebra {
         }
         return new Matrix(holder);
     }
+
+    public static Matrix matrixSubtract(Matrix m1, Matrix m2)
+        throws IllegalArgumentException {
+        if (!(m1.height == m2.height
+            && m1.width == m2.width)) {
+            throw new IllegalArgumentException("Added matrices must be of"
+                                                + " same dimensions.\n"
+                                                + "Matrix 1 of width "
+                                                + m1.width
+                                                + " and height "
+                                                + m1.height
+                                                + " does not have the same"
+                                                + " dimensions as Matrix 2,"
+                                                + " which has width "
+                                                + m2.width  + " height "
+                                                + m2.height + ".");
+        }
+
+        double[][] holder = new double[m1.height][m1.width];
+        for (int row = 0; row < m1.height; row++) {
+            for (int col = 0; col < m1.width; col++) {
+                holder[row][col] = m1.get(row, col) - m2.get(row, col);
+            }
+        }
+        return new Matrix(holder);
+    }
+
+    public static Matrix scalarMutliply(Matrix m1, double scalar)
+        throws IllegalArgumentException {
+
+        double[][] holder = new double[m1.height][m1.width];
+        for (int row = 0; row < m1.height; row++) {
+            for (int col = 0; col < m1.width; col++) {
+                holder[row][col] = scalar * m1.get(row, col)
+            }
+        }
+        return new Matrix(holder);
+    }
 }

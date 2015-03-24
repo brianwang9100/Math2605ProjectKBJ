@@ -63,6 +63,33 @@ public class Matrix {
         return temp;
     }
 
+    @Override
+    public boolean isEquals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (o.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Matrix other = (Matrix)o;
+        if (!(other.height == this.height && other.width == this.width)) {
+            return false;
+        }
+
+        for (int row = 0; row < this.height; row++) {
+            for (int col = 0; col < this.width; col++) {
+                if (other.get(row, col) != this.get(row, col)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 
     /**
      * Gets String representation of matrix.
