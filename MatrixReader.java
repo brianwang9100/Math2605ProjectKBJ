@@ -11,7 +11,7 @@ public class MatrixReader {
         double[][] numArray = new double[4][4];
         int row = 0;
         int col = 0;
-        for (String line : Files.readAllLines(Paths.get("Math2605ProjectKBJ/a.dat"))) {
+        for (String line : Files.readAllLines(Paths.get("a.dat"))) {
             for (String part : line.split(" ")) {
                 numArray[row][col] = Double.valueOf(part);
                 col++;
