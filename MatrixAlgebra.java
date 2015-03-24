@@ -14,15 +14,7 @@ public class MatrixAlgebra {
 
     }
 
-    /**
-     * Multiplies a matrix and vector together
-     * @param m object representation of Matrix
-     * @param v object representation of Vector
-     * @return <code>Vector</code> new mutiplied matrix result
-     * @throws <code>IllegalOperandException</code> if width of matrix !=
-     * length of vector
-     */
-    public static Vector dotProductMultiply(Matrix m1, Matrix m2)
+    public static Matrix dotProductMultiply(Matrix m1, Matrix m2)
         throws IllegalOperandException {
         if (m1.width() != m2.height) {
             throw new IllegalOperandException("Cannot multiply a matrix"
@@ -43,14 +35,6 @@ public class MatrixAlgebra {
         return new Matrix(holder);
     }
 
-    /**
-     * Adds two matrices together
-     * @param m1 object representation of Matrix
-     * @param m2 object representation of Matrix
-     * @return <code>Matrix</code> new added matrix result
-     * @throws <code>IllegalOperandException</code> if dimensions of matrices
-     * do not match
-     */
     public static Matrix matrixAdd(Matrix m1, Matrix m2)
         throws IllegalOperandException {
         if (!(m1.height == m2.height

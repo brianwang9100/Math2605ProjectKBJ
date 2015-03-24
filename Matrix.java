@@ -33,7 +33,7 @@ public class Matrix {
      */
     public double get(int i, int j) {
         if (i < 0 || i > height || j < 0 || j > width) {
-            throw new MatrixIndexOutOfBoundsException(i + "," + j
+            throw new IllegalArgumentException(i + "," + j
                                                         + " does not exist in"
                                                         + " matrix of height "
                                                         + height
@@ -50,16 +50,16 @@ public class Matrix {
      * @return double located at row i and column j in matrix
      */
     public double set(int row, int col, double input) {
-        if (i < 0 || i > height || j < 0 || j > width) {
-            throw new MatrixIndexOutOfBoundsException(i + "," + j
+        if (row < 0 || row > height || col < 0 || col > width) {
+            throw new IllegalArgumentException(row + "," + col
                                                         + " does not exist in"
                                                         + " matrix of height "
                                                         + height
                                                         + " and width "
                                                         + width + ".");
         }
-        double temp = matrix[i][j];
-        matrix[i][j] = input;
+        double temp = matrix[row][col];
+        matrix[row][col] = input;
         return temp;
     }
 
