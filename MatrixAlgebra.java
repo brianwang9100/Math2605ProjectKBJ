@@ -1,3 +1,7 @@
+package Math2605ProjectKBJ;
+
+import java.util.Vector;
+
 /**
  * Operations class for Linear Algebra.
  *
