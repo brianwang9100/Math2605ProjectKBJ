@@ -22,7 +22,7 @@ public class MatrixAlgebra {
 
     public static Matrix dotProductMultiply(Matrix m1, Matrix m2)
         throws IllegalArgumentException {
-        if (m1.width() != m2.height) {
+        if (m1.width != m2.height) {
             throw new IllegalArgumentException("Cannot multiply a matrix"
                                                 + " of width " + m1.width
                                                 + " with a matrx of length "
