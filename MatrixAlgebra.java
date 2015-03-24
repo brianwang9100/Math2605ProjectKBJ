@@ -14,10 +14,11 @@ public class MatrixAlgebra {
 
     }
 
+
     public static Matrix dotProductMultiply(Matrix m1, Matrix m2)
-        throws IllegalOperandException {
+        throws IllegalArgumentException {
         if (m1.width() != m2.height) {
-            throw new IllegalOperandException("Cannot multiply a matrix"
+            throw new IllegalArgumentException("Cannot multiply a matrix"
                                                 + " of width " + m1.width
                                                 + " with a matrx of length "
                                                 + m2.height + "!");
@@ -36,10 +37,10 @@ public class MatrixAlgebra {
     }
 
     public static Matrix matrixAdd(Matrix m1, Matrix m2)
-        throws IllegalOperandException {
+        throws IllegalArgumentException {
         if (!(m1.height == m2.height
             && m1.width == m2.width)) {
-            throw new IllegalOperandException("Added matrices must be of"
+            throw new IllegalArgumentException("Added matrices must be of"
                                                 + " same dimensions.\n"
                                                 + "Matrix 1 of width "
                                                 + m1.width

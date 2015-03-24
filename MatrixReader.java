@@ -2,33 +2,51 @@ package Math2605ProjectKBJ;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class MatrixReader {
     //only stores data from a.dat currently
-    public static double[][] readFile() throws IOException {
+    public static Matrix readFile() throws IOException {
         double[][] numArray = new double[4][4];
-        int height = 0;
-        int width = 0;
+        int row = 0;
+        int col = 0;
         for (String line : Files.readAllLines(Paths.get("Math2605ProjectKBJ/a.dat"))) {
             for (String part : line.split(" ")) {
-                numArray[width][height] = Double.valueOf(part);
-                width++;
+                numArray[row][col] = Double.valueOf(part);
+                col++;
             }
-            width = 0;
-            height++;
+            col = 0;
+            row++;
         }
-        return numArray;
+        return new Matrix(numArray);
+    }
+    public static Matrix readFile(Path path) throws IOException {
+        double[][] numArray;
+        int row = 0;
+        int col = 0;
+        for (String line : Files.readAllLines(path)) {
+            for (String part : line.split(" ")) {
+                col++;
+            }
+            row++;
+        }
+        numArray = new double[row][col];
+        for (String line : Files.readAllLines(path)) {
+            for (String part : line.split(" ")) {
+                numArray[row][col] = Double.valueOf(part);
+                col++;
+            }
+            row++;
+        }
+        return new Matrix(numArray);
+    }
+    public static Matrix readFile(String s) throws IOException {
+        return readFile(Paths.get(s));
     }
     public static void main(String[] args) {
         try {
-            double[][] numArray = readFile();
-            for(double[] a : numArray) {
-                for(double b : a) {
-                    System.out.print(b + " ");
-                }
-                System.out.println();
-            }
+            System.out.print(readFile());
         } catch (IOException e) {
             System.out.println("Input threw IOException");
         }
