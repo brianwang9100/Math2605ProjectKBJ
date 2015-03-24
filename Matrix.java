@@ -106,4 +106,8 @@ public class Matrix {
         }
         return finalList;
     }
+
+    public double[][] toArray(){
+        return matrix;
+    }
 }

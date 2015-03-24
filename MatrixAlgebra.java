@@ -1,7 +1,5 @@
 package Math2605ProjectKBJ;
 
-import java.util.Vector;
-
 /**
  * Operations class for Linear Algebra.
  *
@@ -20,8 +18,7 @@ public class MatrixAlgebra {
         return new Matrix(holder);
     }
 
-    public static Matrix dotProductMultiply(Matrix m1, Matrix m2)
-        throws IllegalArgumentException {
+    public static Matrix dotProductMultiply(Matrix m1, Matrix m2) {
         if (m1.width != m2.height) {
             throw new IllegalArgumentException("Cannot multiply a matrix"
                                                 + " of width " + m1.width
@@ -42,8 +39,7 @@ public class MatrixAlgebra {
         return new Matrix(holder);
     }
 
-    public static Matrix matrixAdd(Matrix m1, Matrix m2)
-        throws IllegalArgumentException {
+    public static Matrix matrixAdd(Matrix m1, Matrix m2) {
         if (!(m1.height == m2.height
             && m1.width == m2.width)) {
             throw new IllegalArgumentException("Added matrices must be of"
@@ -68,8 +64,7 @@ public class MatrixAlgebra {
         return new Matrix(holder);
     }
 
-    public static Matrix matrixSubtract(Matrix m1, Matrix m2)
-        throws IllegalArgumentException {
+    public static Matrix matrixSubtract(Matrix m1, Matrix m2) {
         if (!(m1.height == m2.height
             && m1.width == m2.width)) {
             throw new IllegalArgumentException("Added matrices must be of"
@@ -94,8 +89,7 @@ public class MatrixAlgebra {
         return new Matrix(holder);
     }
 
-    public static Matrix scalarMutliply(Matrix m1, double scalar)
-        throws IllegalArgumentException {
+    public static Matrix scalarMutliply(Matrix m1, double scalar) {
 
         double[][] holder = new double[m1.height][m1.width];
         for (int row = 0; row < m1.height; row++) {
@@ -104,5 +98,40 @@ public class MatrixAlgebra {
             }
         }
         return new Matrix(holder);
+    }
+
+    public static double det(Matrix m) {
+        if (m.height != m.width) {
+            throw new IllegalArgumentException("Matrix must be square!");
+        }
+        if (m.height == 2 && m.width == 2) {
+            //a b
+            //c d
+            double a = m.get(0, 0);
+            double b = m.get(0, 1);
+            double c = m.get(1, 0);
+            double d = m.get(1, 1);
+            return a*d - b*c;
+        } else {
+            double d = 0;
+            for (int i = 0; i < m.width; i++) {
+                double[][]holder = new double[m.height - 1][m.width - 1];
+                for (int row = 1; row < m.height; row++) {
+                    for (int col = 0, aCol = 0; col < m.width && col != i; col++) {
+                        holder[row][aCol] = m.get(row, col);
+                    }
+                }
+                Matrix temp = new Matrix(holder);
+                d += Math.pow(-1, i) * m.get(1, i) * det(temp);
+            }
+            return d;
+        }
+    }
+
+    public static Matrix findAxbSolution(Matrix l, Matrix r) {
+        double[l.height][l.width] left = l.toArray();
+        double[r.height][r.width] right = r.toArray();
+        double[l.width][r.height] sol;
+        
     }
 }
