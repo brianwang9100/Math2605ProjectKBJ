@@ -1,12 +1,12 @@
 import java.util.Scanner;
 public class lu_fact {
     public static void main(String[] args) {
-        // Scanner scanner = new Scanner(System.in);
-        // System.out.println("Enter name of the file to be read");
-        // String name = scanner.nextLine();
-        // Matrix a = MatrixReader.readFile(name);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter name of the file to be read");
+        String name = scanner.nextLine();
+        Matrix a = MatrixReader.readFile(name);
 
-        double[][] matrix = {{8, 2, 9, -7}, {4, 9, -4, 1}, {6, -7, 9, 2}, {-3, 5, -1, 8}};
+        // double[][] matrix = {1};
         Matrix m = new Matrix(matrix);
         Matrix[] lu = factorLU(m);
 
