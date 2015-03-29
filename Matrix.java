@@ -91,6 +91,22 @@ public class Matrix {
         return true;
     }
 
+    public void rowScalarMultiply(double scalar, int row) {
+        for (int col = 0; col < width; col++) {
+            double temp = this.get(row, col);
+            this.set(row, col, scalar * temp);
+        }
+    }
+    //row 2 = row 1 + row 2
+    //second one is changed
+    public void rowAdd(int row1, int row2) {
+        for (int col = 0; col < width; col++) {
+            double row1Value = this.get(row1, col);
+            double row2Value = this.get(row2, col);
+            this.set(row2, col, row1Value + row2Value);
+        }
+    }
+
     /**
      * Gets String representation of matrix.
      * Columns separated by tabs, rows by new lines.

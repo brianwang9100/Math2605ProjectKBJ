@@ -149,55 +149,54 @@ public class MatrixAlgebra {
     //     }
     // }
 
-    public static Matrix findAxbSolution(Matrix l, Matrix r) {
-        if (l.width != l.height || r.height != l.width || r.width != 1) {
-            throw new IllegalArgumentException("A must be square, b must be of 1 width, and the height of b must be the same width as A.");
-        }
-        double[][] left = l.toArray();
-        double[][] right = r.toArray();
-        double[][] sol = new double[l.width][1];
-        // Gaussian elimination with partial pivoting
-        for (int i = 0; i < l.width; i++) {
-            // find pivot row and swap
-            int max = i;
-            for (int j = i + 1; j < l.width; j++) {
-                if (Math.abs(left[j][i]) > Math.abs(A.data[max][i])) {
-                    max = j;
-                }
-            }
-
-            swapRows(left, i, max);
-            swapRows(right, i, max);
-
-
-            // singular
-            if (left[i][i] == 0.0) throw new RuntimeException("Matrix is singular.");
-
-            // pivot within b
-            for (int j = i + 1; j < l.width; j++)
-                right[j][0] -= right[i][0] * left[j][i] / left[i][i];
-
-            // pivot within A
-            for (int j = i + 1; j < l.width; j++) {
-                double m = left[j][i] / left[i][i];
-                for (int k = i+1; k < l.width; k++) {
-                    left[j][k] -= left[i][k] * m;
-                }
-                left[j][i] = 0.0;
-            }
-        }
-
-        // back substitution
-
-        for (int j = N - 1; j >= 0; j--) {
-            double t = 0.0;
-            for (int k = j + 1; k < N; k++)
-                t += left[j][k] * sol[k][0];
-            sol[j][0] = (right[j][0] - t) / left[j][j];
-        }
-        return new Matrix(sol);
-
-    }
+    // public static Matrix findAxbSolution(Matrix l, Matrix r) {
+    //     if (l.width != l.height || r.height != l.width || r.width != 1) {
+    //         throw new IllegalArgumentException("A must be square, b must be of 1 width, and the height of b must be the same width as A.");
+    //     }
+    //     double[][] left = l.toArray();
+    //     double[][] right = r.toArray();
+    //     double[][] sol = new double[l.width][1];
+    //     for (int i = 0; i < l.width; i++) {
+    //         // find pivot row and swap
+    //         int max = i;
+    //         for (int j = i + 1; j < l.width; j++) {
+    //             if (Math.abs(left[j][i]) > Math.abs(A.left[max][i])) {
+    //                 max = j;
+    //             }
+    //         }
+    //
+    //         swapRows(left, i, max);
+    //         swapRows(right, i, max);
+    //
+    //
+    //         // singular
+    //         if (left[i][i] == 0.0) throw new RuntimeException("Matrix is singular.");
+    //
+    //         // pivot within b
+    //         for (int j = i + 1; j < l.width; j++)
+    //             right[j][0] -= right[i][0] * left[j][i] / left[i][i];
+    //
+    //         // pivot within A
+    //         for (int j = i + 1; j < l.width; j++) {
+    //             double m = left[j][i] / left[i][i];
+    //             for (int k = i+1; k < l.width; k++) {
+    //                 left[j][k] -= left[i][k] * m;
+    //             }
+    //             left[j][i] = 0.0;
+    //         }
+    //     }
+    //
+    //     // back substitution
+    //
+    //     for (int j = N - 1; j >= 0; j--) {
+    //         double t = 0.0;
+    //         for (int k = j + 1; k < N; k++)
+    //             t += left[j][k] * sol[k][0];
+    //         sol[j][0] = (right[j][0] - t) / left[j][j];
+    //     }
+    //     return new Matrix(sol);
+    //
+    // }
 
     private static void swapRows(double[][] backing, int row1, int row2) {
         double[] temp = backing[i];

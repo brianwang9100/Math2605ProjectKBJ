@@ -1,12 +1,12 @@
-import java.util.Scanner
+import java.util.Scanner;
 public class qr_fact_househ {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter name of the file to be read");
         String name = scanner.nextLine();
-        Matrix a =
+        Matrix a = MatrixReader.readFile(name);
 
-        Matrix[] qr = factorHH(Matrix a)
+        Matrix[] qr = factorHH(a)
 
         System.out.println("Q:");
         System.out.println(qr[0]);
