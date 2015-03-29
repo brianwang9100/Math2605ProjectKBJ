@@ -27,9 +27,9 @@ public class MatrixAlgebra {
         double[][] holder = new double[m1.height][m2.width];
         for (int i = 0; i < m1.height; i++) {
             for (int j = 0; j < m2.width; j++) {
-                int sum = 0;
+                double sum = 0;
                 for (int row = 0, col = 0; row < m1.height; row++, col++) {
-                    sum += m1.get(row, j) * m2.get(i, col);
+                    sum += m1.get(i, col) * m2.get(row, j);
                 }
                 holder[i][j] = sum;
             }
