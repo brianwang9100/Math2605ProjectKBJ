@@ -110,4 +110,6 @@ public class Matrix {
     public double[][] toArray(){
         return matrix;
     }
+
+
 }

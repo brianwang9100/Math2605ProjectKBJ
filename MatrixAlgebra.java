@@ -18,7 +18,7 @@ public class MatrixAlgebra {
         return new Matrix(holder);
     }
 
-    public static Matrix dotProductMultiply(Matrix m1, Matrix m2) {
+    public static Matrix matrixMultiply(Matrix m1, Matrix m2) {
         if (m1.width != m2.height) {
             throw new IllegalArgumentException("Cannot multiply a matrix"
                                                 + " of width " + m1.width
@@ -203,5 +203,46 @@ public class MatrixAlgebra {
         double[] temp = backing[i];
         backing[i] = backing[j];
         backing[j] = temp;
+    }
+
+    private static double magnitudeVector(Matrix m) {
+        if (m.width != 1) {
+            throw new IllegalArgumentException("Not a vector");
+        }
+        double squareSum = 0;
+        for (int i = 0; i < m.height; i++) {
+            squareSum += Math.pow(m.get(i, 0), 2);
+        }
+
+        return Math.sqrt(squareSum);
+    }
+
+    private static Matrix unitVector(Matrix m) {
+        if (m.width != 1) {
+            throw new IllegalArgumentException("Not a vector");
+        }
+        return scalarMultiplY(1.0 / magnitudeVector(m), m);
+    }
+
+    private static Matrix identityMatrix(int i) {
+
+        double[][] holder = new double[i][i];
+        for (int rowcol = 0; rowcol < holder.length; rowcol++) {
+            double[rowcol][rowcol] = 1;
+        }
+
+        return new Matrix(holder);
+    }
+
+    private static Matrix vectorOfMatrix(Matrix m, int column) {
+        if (column >= m.width) {
+            throw new IllegalArgumentException("column exceeds width");
+        }
+        double[][] holder = double[m.height][1];
+        for (int row = 0; row < m.height; row++) {
+            double[row][0] = m.get(row, 0);
+        }
+
+        return new Matrix(holder);
     }
 }
