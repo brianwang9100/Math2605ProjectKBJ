@@ -1,5 +1,3 @@
-package Math2605ProjectKBJ;
-
 /**
  * Operations class for Linear Algebra.
  *
@@ -94,7 +92,7 @@ public class MatrixAlgebra {
         double[][] holder = new double[m1.height][m1.width];
         for (int row = 0; row < m1.height; row++) {
             for (int col = 0; col < m1.width; col++) {
-                holder[row][col] = scalar * m1.get(row, col)
+                holder[row][col] = scalar * m1.get(row, col);
             }
         }
         return new Matrix(holder);
@@ -198,13 +196,13 @@ public class MatrixAlgebra {
     //
     // }
 
-    private static void swapRows(double[][] backing, int row1, int row2) {
-        double[] temp = backing[i];
-        backing[i] = backing[j];
-        backing[j] = temp;
+    public static void swapRows(double[][] backing, int row1, int row2) {
+        double[] temp = backing[row1];
+        backing[row1] = backing[row2];
+        backing[row2] = temp;
     }
 
-    private static double magnitudeVector(Matrix m) {
+    public static double magnitudeVector(Matrix m) {
         if (m.width != 1) {
             throw new IllegalArgumentException("Not a vector");
         }
@@ -216,30 +214,30 @@ public class MatrixAlgebra {
         return Math.sqrt(squareSum);
     }
 
-    private static Matrix unitVector(Matrix m) {
+    public static Matrix unitVector(Matrix m) {
         if (m.width != 1) {
             throw new IllegalArgumentException("Not a vector");
         }
-        return scalarMultiplY(1.0 / magnitudeVector(m), m);
+        return scalarMutliply(m, 1.0 / magnitudeVector(m));
     }
 
-    private static Matrix identityMatrix(int i) {
+    public static Matrix identityMatrix(int size) {
 
-        double[][] holder = new double[i][i];
+        double[][] holder = new double[size][size];
         for (int rowcol = 0; rowcol < holder.length; rowcol++) {
-            double[rowcol][rowcol] = 1;
+            holder[rowcol][rowcol] = 1;
         }
 
         return new Matrix(holder);
     }
 
-    private static Matrix vectorOfMatrix(Matrix m, int column) {
+    public static Matrix vectorOfMatrix(Matrix m, int column) {
         if (column >= m.width) {
             throw new IllegalArgumentException("column exceeds width");
         }
-        double[][] holder = double[m.height][1];
+        double[][] holder = new double[m.height][1];
         for (int row = 0; row < m.height; row++) {
-            double[row][0] = m.get(row, 0);
+            holder[row][0] = m.get(row, 0);
         }
 
         return new Matrix(holder);

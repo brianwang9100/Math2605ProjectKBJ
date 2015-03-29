@@ -6,34 +6,32 @@ public class lu_fact {
         // String name = scanner.nextLine();
         // Matrix a = MatrixReader.readFile(name);
 
-        double[][] matrix = {{8, 2, 9}, {4, 9, 4}, {6, 7, 9}};
+        double[][] matrix = {{8, 2, 9, -7}, {4, 9, -4, 1}, {6, -7, 9, 2}, {-3, 5, -1, 8}};
         Matrix m = new Matrix(matrix);
         Matrix[] lu = factorLU(m);
 
         System.out.println("L:");
-        System.out.println(qr[0]);
+        System.out.println(lu[0]);
         System.out.println("U:");
-        System.out.println(qr[1]);
+        System.out.println(lu[1]);
 
         //still need to do error Need to make eigenvalue method
     }
 
-    public static Matrix factorLU(Matrix m) {
-        if (a.height != a.width) {
+    public static Matrix[] factorLU(Matrix m) {
+        if (m.height != m.width) {
             throw new IllegalArgumentException("Matrix must be square!");
         }
         Matrix[] lu = new Matrix[2];
-        Matrix L = MatrixAlgebra.identity(a.width);
-        Matrix U = MatrixAlgebra.identity(a.width);
-        lu[0] = Q;
-        lu[1] = R;
-        //qr[0] = Q
-        //qr[1] = R
+        Matrix L = MatrixAlgebra.identityMatrix(m.width);
+        Matrix U = MatrixAlgebra.identityMatrix(m.width);
+        lu[0] = L;
+        lu[1] = U;
         factorLU(lu, m);
         return lu;
     }
 
-    private static void factorLU(double[] lu, Matrix m) {
+    private static void factorLU(Matrix[] lu, Matrix m) {
         Matrix L = lu[0];
         Matrix U = m;
 
@@ -44,11 +42,15 @@ public class lu_fact {
             for (int row = pivotRow + 1; row < m.height; row++) {
                 double valueToBeChanged = m.get(row, pivotCol);
                 double scalar = pivotValue/valueToBeChanged;
-                if (scalar * valueToBeChange + pivotValue != 0) {
+                if (scalar * valueToBeChanged + pivotValue != 0) {
                     scalar *= -1;
                 }
                 m.rowScalarMultiply(scalar, row);
                 m.rowAdd(pivotRow, row);
+
+                //assuming that the code works, this line gets rid of
+                //any floating point errors
+                m.set(row, pivotCol, 0);
 
                 L.set(row, pivotCol, -1 * scalar);
             }
@@ -58,6 +60,4 @@ public class lu_fact {
         lu[0] = L;
         lu[1] = m;
     }
-
-
 }

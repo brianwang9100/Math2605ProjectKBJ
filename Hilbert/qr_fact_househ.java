@@ -22,7 +22,7 @@ public class qr_fact_househ {
             throw new IllegalArgumentException("Matrix must be square!");
         }
         Matrix[] qr = new Matrix[2];
-        Matrix Q = MatrixAlgebra.identity(a.width);
+        Matrix Q = MatrixAlgebra.identityMatrix(a.width);
         Matrix R = a;
         qr[0] = Q;
         qr[1] = R;

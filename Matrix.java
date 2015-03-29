@@ -1,5 +1,3 @@
-package Math2605ProjectKBJ;
-
 /**
  * Mutable abstraction of Matrix.
  *
@@ -64,7 +62,7 @@ public class Matrix {
     }
 
     @Override
-    public boolean isEquals(Object o) {
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
