@@ -1,61 +1,35 @@
+
 public class power_method {
-    //instance variables
-    private Matrix a;
-    private double tol;
-    private Matrix u;
-    private static int iterationsCount;
 
-    public static final int MAX_ITERATIONS = 100;
-
-    public power_method(Matrix a, double tol, Matrix u) {
-        this.a = a;
-        this.tol = tol;
-        this.u = u;
-        iterationsCount = 0;
-    }
-
-    public static Matrix getLargestEvector(Matrix a) {
+    public static Result<Double, Matrix, Integer> largestEigen(Matrix a, Matrix u, double tol) {
         
-        Matrix vector = new Matrix( new double[a.height][1] );
-        for (int i = 0; i < vector.height; i++) {
-            vector.set(i, 0, 1);
-        }
-        return getLargestEvector(a, 8.0, vector);
-    }
+        //Number of Iterations
+        int iterations = 0;
 
-    public static Matrix getLargestEvector(Matrix a, double tol, Matrix u) {
-        if (a.width != u.height) {
-            throw new RuntimeException("dimensions don't match");
+        double old = 0;
+        Matrix au = MatrixAlgebra.matrixMultiply(a, u);
+        double error = Math.abs(old - au.get(0, 0) / au.get(0, au.height - 1));
+        while (error > tol && iterations < 500) {
+            iterations++;
+            old = au.get(0, 0);
+            Matrix i = MatrixAlgebra.matrixMultiply(a, au);
+            au = i;
+            error = Math.abs(old - i.get(0, 0) / i.get(0, i.height - 1));
         }
-
-        Matrix eVector = largestEvectorRec(a, tol, u);
-        double[][] result = new double[eVector.height][1];
-        Matrix returnMatrix = new Matrix(result);
-        double largestEntry = findLargestEntry(eVector);
-        for (int i = 0; i < eVector.height; i++) {
-            double input = eVector.get(i, 0) / largestEntry;
-            returnMatrix.set(i, 0, input);
-        }
-        return returnMatrix;
-    }
-
-    private static Matrix largestEvectorRec(Matrix a, double tol, Matrix u) {
         
-        Matrix iteration = MatrixAlgebra.matrixMultiply(a, u);
-        iterationsCount++;
-        if (iterationsCount != MAX_ITERATIONS) {
-            largestEvectorRec(a, tol, iteration);
+        if (iterations >= 300) {
+            System.out.println("Does not converge on 300th iteration. Stopping.");
         }
-        return iteration;
+        
+        Matrix aau = MatrixAlgebra.matrixMultiply(a, au);
+        double eValue = dotProd(aau, au) / dotProd(au,au);
+        Matrix eVector = new Matrix(new double[0][au.height -1]);
+        for (int i = 0; i < au.height; i++) {
+            eVector.set(i, 0, au.get(i, 0) / au.get(0, au.height - 1));
+        }
+        return new Result<Double, Matrix, Integer>(eValue, eVector, iterations);
     }
-
-    public static double getLargestEvalue(Matrix a) {
-        Matrix x = getLargestEvector(a);
-        Matrix Ax = MatrixAlgebra.matrixMultiply(a, x);
-        double res = dotProd(Ax, x) / dotProd(x,x);
-        return res;
-    }
-
+    
     public static double dotProd(Matrix a, Matrix b){
         if(a.height != b.height){
             throw new IllegalArgumentException("dimensions don't agree");
@@ -66,14 +40,18 @@ public class power_method {
         }
         return sum;
     }
-
-    private static double findLargestEntry(Matrix m) {
-        double currentMax = 0;
-        for (int i = 0; i < m.height; i++) {
-            if (Math.abs(m.get(i, 0)) > currentMax) {
-                currentMax = m.get(i, 0);
-            }
-        }
-        return currentMax;
+    
+    public static void main(String[] args) {
+        Matrix m = new Matrix(new double[2][2]);
+        m.set(0, 0, 2);
+        m.set(0, 1, 1);
+        m.set(1, 0, 1);
+        m.set(1, 1, 4);
+        System.out.println(m);
+        Matrix n = new Matrix(new double[2][1]);
+        n.set(0,0,1);
+        n.set(1,0,1);
+        System.out.println(largestEigen(m, n, 8));
     }
+    
 }
