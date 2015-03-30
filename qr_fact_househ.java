@@ -33,11 +33,11 @@ public class qr_fact_househ {
         qr[1] = R;
         //qr[0] = Q
         //qr[1] = R
-        factorHH(qr, a);
+        factorHH(qr, a, 0);
         return qr;
     }
 
-    private static void factorHH(Matrix[] qr, Matrix current) {
+    private static void factorHH(Matrix[] qr, Matrix current, int index) {
         if (current.width != 1) {
             Matrix Q = qr[0];
             Matrix R = qr[1];
@@ -51,8 +51,9 @@ public class qr_fact_househ {
             qr[1] = MatrixAlgebra.matrixMultiply(converted, R);
 
             //recursively calls on the next H'
-            Matrix HPrime = findHPrime(qr[1]);
-            factorHH(qr, HPrime);
+            index++;
+            Matrix HPrime = findHPrime(qr[1], index);
+            factorHH(qr, HPrime, index);
         }
     }
 
@@ -98,10 +99,10 @@ public class qr_fact_househ {
         return new Matrix(holder);
     }
 
-    private static Matrix findHPrime(Matrix m) {
+    private static Matrix findHPrime(Matrix m, int index) {
         double[][] holder = new double[m.height - 1][m.width - 1];
-        for (int row = 0, i = 1; i < m.height; row++, i++) {
-            for (int col = 0, j = 1; j < m.width; col++, j++) {
+        for (int row = 0, i = index; i < m.height; row++, i++) {
+            for (int col = 0, j = index; j < m.width; col++, j++) {
                 holder[row][col] = m.get(i, j);
             }
         }

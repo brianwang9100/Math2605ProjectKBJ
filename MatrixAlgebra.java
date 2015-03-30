@@ -7,7 +7,7 @@
 public class MatrixAlgebra {
 
     public static Matrix transpose(Matrix m) {
-        double[][] holder = new double[m.height][m.width];
+        double[][] holder = new double[m.width][m.height];
         for (int row = 0; row < m.height; row++) {
             for (int col = 0; col < m.width; col++) {
                 holder[col][row] = m.get(row, col);
@@ -28,7 +28,7 @@ public class MatrixAlgebra {
         for (int i = 0; i < m1.height; i++) {
             for (int j = 0; j < m2.width; j++) {
                 double sum = 0;
-                for (int row = 0, col = 0; row < m1.height; row++, col++) {
+                for (int row = 0, col = 0; row < m2.height; row++, col++) {
                     sum += m1.get(i, col) * m2.get(row, j);
                 }
                 holder[i][j] = sum;
