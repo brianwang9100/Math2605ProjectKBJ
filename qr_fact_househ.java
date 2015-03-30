@@ -9,7 +9,7 @@ public class qr_fact_househ {
         // Matrix[] qr = factorHH(a)
 
         double[][] holder = {{4, 3, 0}, {3, 1, 0}, {0, 0 , 1}};
-        Matrix a = new Matrix(a);
+        Matrix a = new Matrix(holder);
 
         Matrix[] qr = factorHH(a);
 
@@ -47,8 +47,8 @@ public class qr_fact_househ {
             Matrix converted = embedWithIdentity(HH, Q.width);
 
             //appends matrix to Q and R.
-            qr[0] = matrixMultiply(Q, converted);
-            qr[1] = matrixMultiply(converted, R);
+            qr[0] = MatrixAlgebra.matrixMultiply(Q, converted);
+            qr[1] = MatrixAlgebra.matrixMultiply(converted, R);
 
             //recursively calls on the next H'
             Matrix HPrime = findHPrime(qr[1]);
@@ -60,13 +60,15 @@ public class qr_fact_househ {
         // uTilda = v1 + v2
         // where v2 = unitVector * 1/||v1||
         Matrix v1 = MatrixAlgebra.vectorOfMatrix(current, 0);
-        Matrix v2 = MatrixAlgebra.magnitudeVector(v1) * identityVector(current.height);
+        double magnitudeV1 = MatrixAlgebra.magnitudeVector(v1);
+        Matrix identityV = identityVector(current.height);
+        Matrix v2 = MatrixAlgebra.scalarMultiply(identityV, magnitudeV1);
         Matrix u = MatrixAlgebra.matrixAdd(v1, v2);
         Matrix uTilda = MatrixAlgebra.unitVector(u);
 
         Matrix identityMatrix = MatrixAlgebra.identityMatrix(current.height);
         Matrix uTildaTransposed = MatrixAlgebra.transpose(uTilda);
-        Matrix m = MatrixAlgebra.matrixMultiply(uTilda, uTildaTranspose);
+        Matrix m = MatrixAlgebra.matrixMultiply(uTilda, uTildaTransposed);
         // m = uTilda*uTildaTranspose
         Matrix HH = MatrixAlgebra.matrixSubtract(identityMatrix, m);
 
@@ -79,10 +81,10 @@ public class qr_fact_househ {
             return m;
         }
         double[][] holder = new double[size][size];
-        for (int rowCol = 0; rowCol < size - m.length; i++) {
+        for (int rowCol = 0; rowCol < size - m.height; rowCol++) {
             holder[rowCol][rowCol] = 1;
         }
-        for (int row = size - m.length, i = 0; i < m.height; row++, i++) {
+        for (int row = size - m.height, i = 0; i < m.height; row++, i++) {
             for (int col = size - m.width, j = 0; j < m.width; row++, j++) {
                 holder[row][col] = m.get(i, j);
             }

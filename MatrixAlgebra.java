@@ -87,7 +87,7 @@ public class MatrixAlgebra {
         return new Matrix(holder);
     }
 
-    public static Matrix scalarMutliply(Matrix m1, double scalar) {
+    public static Matrix scalarMultiply(Matrix m1, double scalar) {
 
         double[][] holder = new double[m1.height][m1.width];
         for (int row = 0; row < m1.height; row++) {
