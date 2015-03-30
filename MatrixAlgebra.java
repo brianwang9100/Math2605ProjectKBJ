@@ -218,7 +218,7 @@ public class MatrixAlgebra {
         if (m.width != 1) {
             throw new IllegalArgumentException("Not a vector");
         }
-        return scalarMutliply(m, 1.0 / magnitudeVector(m));
+        return scalarMultiply(m, 1.0 / magnitudeVector(m));
     }
 
     public static Matrix identityMatrix(int size) {
