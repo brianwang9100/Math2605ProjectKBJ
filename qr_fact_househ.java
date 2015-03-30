@@ -38,22 +38,27 @@ public class qr_fact_househ {
     }
 
     private static void factorHH(Matrix[] qr, Matrix current, int index) {
+        System.out.println(current.height + ", " + current.width);
+        System.out.println(index);
         if (current.width != 1) {
             Matrix Q = qr[0];
             Matrix R = qr[1];
             Matrix HH = findHouseHolder(current);
 
+
             //puts matrix to equal original size
             Matrix converted = embedWithIdentity(HH, Q.width);
+
+            System.out.println("HouseHolder:");
+            System.out.println(converted);
 
             //appends matrix to Q and R.
             qr[0] = MatrixAlgebra.matrixMultiply(Q, converted);
             qr[1] = MatrixAlgebra.matrixMultiply(converted, R);
 
             //recursively calls on the next H'
-            index++;
-            Matrix HPrime = findHPrime(qr[1], index);
-            factorHH(qr, HPrime, index);
+            Matrix HPrime = findHPrime(qr[1], index + 1);
+            factorHH(qr, HPrime, index + 1);
         }
     }
 
@@ -82,11 +87,11 @@ public class qr_fact_househ {
             return m;
         }
         double[][] holder = new double[size][size];
-        for (int rowCol = 0; rowCol < size - m.height; rowCol++) {
+        for (int rowCol = 0; rowCol < size; rowCol++) {
             holder[rowCol][rowCol] = 1;
         }
         for (int row = size - m.height, i = 0; i < m.height; row++, i++) {
-            for (int col = size - m.width, j = 0; j < m.width; row++, j++) {
+            for (int col = size - m.width, j = 0; j < m.width; col++, j++) {
                 holder[row][col] = m.get(i, j);
             }
         }
@@ -100,7 +105,8 @@ public class qr_fact_househ {
     }
 
     private static Matrix findHPrime(Matrix m, int index) {
-        double[][] holder = new double[m.height - 1][m.width - 1];
+
+        double[][] holder = new double[m.height - index][m.width - index];
         for (int row = 0, i = index; i < m.height; row++, i++) {
             for (int col = 0, j = index; j < m.width; col++, j++) {
                 holder[row][col] = m.get(i, j);

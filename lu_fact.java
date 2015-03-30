@@ -7,8 +7,11 @@ public class lu_fact {
         // Matrix a = MatrixReader.readFile(name);
 
         double[][] matrix = {{8, 2, 9}, {4, 9, 4}, {6, 7, 9}};
-        Matrix m = new Matrix(matrix);
-        Matrix[] lu = factorLU(m);
+        Matrix A = new Matrix(matrix);
+        Matrix[] lu = factorLU(A);
+
+        System.out.println("A:");
+        System.out.println(A);
 
         System.out.println("L:");
         System.out.println(lu[0]);
@@ -16,21 +19,26 @@ public class lu_fact {
         System.out.println(lu[1]);
 
         Matrix LU = MatrixAlgebra.matrixMultiply(lu[0], lu[1]);
-        System.out.println("LU:");
-        System.out.println(LU);
-        //still need to do error Need to make eigenvalue method
+
+        Matrix errorMatrix = MatrixAlgebra.matrixSubtract(LU, A);
+        double error = MatrixAlgebra.findAbsoluteMax(errorMatrix);
+        System.out.printf("||LU - A|| Error = %.3f\n", error);
     }
 
+    //lu[0] = L;
+    //lu[1] = U;
     public static Matrix[] factorLU(Matrix m) {
         if (m.height != m.width) {
             throw new IllegalArgumentException("Matrix must be square!");
         }
-        Matrix[] lu = new Matrix[2];
+        Matrix copy = MatrixAlgebra.copyOf(m);
         Matrix L = MatrixAlgebra.identityMatrix(m.width);
         Matrix U = MatrixAlgebra.identityMatrix(m.width);
+        Matrix[] lu = new Matrix[2];
         lu[0] = L;
         lu[1] = U;
-        factorLU(lu, m);
+        factorLU(lu, copy);
+
         return lu;
     }
 
