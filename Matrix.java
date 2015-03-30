@@ -114,7 +114,7 @@ public class Matrix {
         String finalList = "";
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                finalList = finalList + String.format("%8.3f", matrix[row][col]);
+                finalList = finalList + String.format("%8.6f", matrix[row][col]);
             }
             finalList += "\n";
         }

@@ -1,17 +1,41 @@
 import java.util.Scanner;
+import java.io.IOException;
 public class lu_fact {
     public static void main(String[] args) {
-        // Scanner scanner = new Scanner(System.in);
-        // System.out.println("Enter name of the file to be read");
-        // String name = scanner.nextLine();
-        // Matrix a = MatrixReader.readFile(name);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter name of the file to be read");
+        String name = scanner.nextLine();
+        try {
+            Matrix A = MatrixReader.readFile(name);
+            System.out.println(A);
+            factorLU(A);
+        } catch(IOException e) {
+            System.out.println("File name not valid");
+        }
+        // double[][] matrix = {{8, 2, 9}, {4, 9, 4}, {6, 7, 9}};
+        // Matrix A = new Matrix(matrix);
+        // factorLU(A);
 
-        double[][] matrix = {{8, 2, 9}, {4, 9, 4}, {6, 7, 9}};
-        Matrix A = new Matrix(matrix);
-        Matrix[] lu = factorLU(A);
+    }
+
+    //lu[0] = L;
+    //lu[1] = U;
+    public static void factorLU(Matrix a) {
+        if (a.height != a.width) {
+            throw new IllegalArgumentException("Matrix must be square!");
+        }
+        //make a copy of the matrix to not mess with original
+        Matrix copy = MatrixAlgebra.copyOf(a);
+        Matrix L = MatrixAlgebra.identityMatrix(a.width);
+        Matrix U = MatrixAlgebra.identityMatrix(a.width);
+        Matrix[] lu = new Matrix[2];
+        //setup LU with identity matrices.
+        lu[0] = L;
+        lu[1] = U;
+        factorLU(lu, copy);
 
         System.out.println("A:");
-        System.out.println(A);
+        System.out.println(a);
 
         System.out.println("L:");
         System.out.println(lu[0]);
@@ -20,31 +44,13 @@ public class lu_fact {
 
         Matrix LU = MatrixAlgebra.matrixMultiply(lu[0], lu[1]);
 
-        Matrix errorMatrix = MatrixAlgebra.matrixSubtract(LU, A);
+        Matrix errorMatrix = MatrixAlgebra.matrixSubtract(LU, a);
         double error = MatrixAlgebra.findAbsoluteMax(errorMatrix);
-        System.out.printf("||LU - A|| Error = %.3f\n", error);
-    }
-
-    //lu[0] = L;
-    //lu[1] = U;
-    public static Matrix[] factorLU(Matrix m) {
-        if (m.height != m.width) {
-            throw new IllegalArgumentException("Matrix must be square!");
-        }
-        Matrix copy = MatrixAlgebra.copyOf(m);
-        Matrix L = MatrixAlgebra.identityMatrix(m.width);
-        Matrix U = MatrixAlgebra.identityMatrix(m.width);
-        Matrix[] lu = new Matrix[2];
-        lu[0] = L;
-        lu[1] = U;
-        factorLU(lu, copy);
-
-        return lu;
+        System.out.printf("||LU - A|| Error = %.6f\n", error);
     }
 
     private static void factorLU(Matrix[] lu, Matrix m) {
         Matrix L = lu[0];
-        Matrix U = m;
 
         int pivotRow = 0;
         int pivotCol = 0;
@@ -59,10 +65,6 @@ public class lu_fact {
                 m.rowScalarMultiply(scalar, pivotRow);
                 m.rowAdd(pivotRow, row);
                 m.rowScalarMultiply(1/scalar, pivotRow);
-
-                //assuming that the code works, this line gets rid of
-                // //any floating point errors
-                // m.set(row, pivotCol, 0);
 
                 L.set(row, pivotCol, -1 * scalar);
             }

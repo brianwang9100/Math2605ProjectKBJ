@@ -24,13 +24,17 @@ public class MatrixReader {
         int row = 0;
         int col = 0;
         for (String line : Files.readAllLines(path)) {
+            col = 0;
             for (String part : line.split(" ")) {
                 col++;
             }
             row++;
         }
         numArray = new double[row][col];
+        row = 0;
+        col = 0;
         for (String line : Files.readAllLines(path)) {
+            col = 0;
             for (String part : line.split(" ")) {
                 numArray[row][col] = Double.valueOf(part);
                 col++;
