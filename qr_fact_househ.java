@@ -3,17 +3,23 @@ import java.io.IOException;
 
 public class qr_fact_househ {
     public static void main(String[] args) {
-        // Scanner scanner = new Scanner(System.in);
-        // System.out.println("Enter name of the file to be read");
-        // String name = scanner.nextLine();
-        // Matrix a = MatrixReader.readFile(name);
-        //
-        // Matrix[] qr = factorHH(a)
+        factorHH();
+    }
 
-        double[][] holder = {{4, 3, 0}, {3, 1, 0}, {0, 0 , 1}};
-        Matrix A = new Matrix(holder);
+    public static void factorHH() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter name of the file to be read");
+        String name = scanner.nextLine();
+        try {
+            Matrix A = MatrixReader.readFile(name);
+            factorHH(A);
+        } catch(IOException e) {
+            System.out.println("File name not valid");
+        }
 
-        factorHH(A);
+        // double[][] holder = {{4, 3, 0}, {3, 1, 0}, {0, 0 , 1}};
+        // Matrix A = new Matrix(holder);
+        // factorHH(A);
     }
 
     public static void factorHH(Matrix a) {
@@ -41,7 +47,7 @@ public class qr_fact_househ {
 
         Matrix errorMatrix = MatrixAlgebra.matrixSubtract(QR, a);
         double error = MatrixAlgebra.findAbsoluteMax(errorMatrix);
-        System.out.printf("||QR - A|| Error = %.6f\n", error);
+        System.out.printf("||QR - A|| Error = %.18f\n", error);
     }
 
     private static void factorHH(Matrix[] qr, Matrix current, int index) {
@@ -49,6 +55,9 @@ public class qr_fact_househ {
             Matrix Q = qr[0];
             Matrix R = qr[1];
             Matrix HH = findHouseHolder(current);
+            System.out.println("HH");
+            System.out.println(HH);
+
 
             //puts matrix to equal original size
             Matrix converted = embedWithIdentity(HH, Q.width);
@@ -67,18 +76,26 @@ public class qr_fact_househ {
 
         //steps to find uTilda
         Matrix v1 = MatrixAlgebra.vectorOfMatrix(current, 0);
+
         double magnitudeV1 = MatrixAlgebra.magnitudeVector(v1);
         Matrix identityV = identityVector(current.height);
         Matrix v2 = MatrixAlgebra.scalarMultiply(identityV, magnitudeV1);
-        Matrix u = MatrixAlgebra.matrixAdd(v1, v2);
-
-        Matrix uTilda = MatrixAlgebra.unitVector(u);
+        Matrix u = MatrixAlgebra.matrixSubtract(v1, v2);
 
         //H = I - 2uu^t
         Matrix identityMatrix = MatrixAlgebra.identityMatrix(current.height);
-        Matrix uTildaTransposed = MatrixAlgebra.transpose(uTilda);
-        Matrix m = MatrixAlgebra.matrixMultiply(uTilda, uTildaTransposed);
-        Matrix twoM = MatrixAlgebra.scalarMultiply(m, 2);
+        Matrix uTransposed = MatrixAlgebra.transpose(u);
+        Matrix m = MatrixAlgebra.matrixMultiply(u, uTransposed);
+        System.out.println("uu^t");
+        System.out.println(m);
+        double magnitude = MatrixAlgebra.magnitudeVector(u);
+        double scalar;
+        if (magnitude == 0) {
+            scalar = 1;
+        } else {
+            scalar = 2/Math.pow(magnitude, 2);
+        }
+        Matrix twoM = MatrixAlgebra.scalarMultiply(m, scalar);
         Matrix HH = MatrixAlgebra.matrixSubtract(identityMatrix, twoM);
 
         return HH;

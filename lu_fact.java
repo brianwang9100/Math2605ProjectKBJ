@@ -2,12 +2,15 @@ import java.util.Scanner;
 import java.io.IOException;
 public class lu_fact {
     public static void main(String[] args) {
+        factorLU();
+    }
+
+    public static void factorLU() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter name of the file to be read");
         String name = scanner.nextLine();
         try {
             Matrix A = MatrixReader.readFile(name);
-            System.out.println(A);
             factorLU(A);
         } catch(IOException e) {
             System.out.println("File name not valid");
@@ -15,7 +18,6 @@ public class lu_fact {
         // double[][] matrix = {{8, 2, 9}, {4, 9, 4}, {6, 7, 9}};
         // Matrix A = new Matrix(matrix);
         // factorLU(A);
-
     }
 
     //lu[0] = L;
@@ -45,8 +47,11 @@ public class lu_fact {
         Matrix LU = MatrixAlgebra.matrixMultiply(lu[0], lu[1]);
 
         Matrix errorMatrix = MatrixAlgebra.matrixSubtract(LU, a);
+        // System.out.println("LU - A");
+        // System.out.println(errorMatrix);
+
         double error = MatrixAlgebra.findAbsoluteMax(errorMatrix);
-        System.out.printf("||LU - A|| Error = %.6f\n", error);
+        System.out.printf("||LU - A|| Error = %.18f\n", error);
     }
 
     private static void factorLU(Matrix[] lu, Matrix m) {
