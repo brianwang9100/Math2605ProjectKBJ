@@ -23,17 +23,10 @@ public class qr_fact_givens {
                 System.out.println();
             }
         }
-
-        // double[][] holder = {{4, 3, 0}, {3, 1, 0}, {0, 0 , 1}};
-        // Matrix A = new Matrix(holder);
-        // factorG(A);
     }
 
     public static Matrix[] factorG(Matrix a) {
         long startTime = System.nanoTime();
-        if (a.height != a.width) {
-            throw new IllegalArgumentException("Matrix must be square!");
-        }
         Matrix[] qr = new Matrix[2];
         Matrix Q = MatrixAlgebra.identityMatrix(a.width);
         Matrix R = a;

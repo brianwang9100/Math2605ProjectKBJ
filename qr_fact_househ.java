@@ -23,25 +23,16 @@ public class qr_fact_househ {
                 System.out.println();
             }
         }
-
-        // double[][] holder = {{4, 3, 0}, {3, 1, 0}, {0, 0 , 1}};
-        // Matrix A = new Matrix(holder);
-        // factorHH(A);
     }
 
     public static Matrix[] factorHH(Matrix a) {
         long startTime = System.nanoTime();
-        if (a.height != a.width) {
-            throw new IllegalArgumentException("Matrix must be square!");
-        }
         Matrix copy = MatrixAlgebra.copyOf(a);
         Matrix[] qr = new Matrix[2];
         Matrix Q = MatrixAlgebra.identityMatrix(a.width);
         Matrix R = a;
         qr[0] = Q;
         qr[1] = R;
-        //qr[0] = Q
-        //qr[1] = R
         factorHH(qr, copy, 0);
 
         System.out.println("A:");
@@ -68,9 +59,6 @@ public class qr_fact_househ {
             Matrix Q = qr[0];
             Matrix R = qr[1];
             Matrix HH = findHouseHolder(current);
-            System.out.println("HH");
-            System.out.println(HH);
-
 
             //puts matrix to equal original size
             Matrix converted = embedWithIdentity(HH, Q.width);
@@ -99,8 +87,6 @@ public class qr_fact_househ {
         Matrix identityMatrix = MatrixAlgebra.identityMatrix(current.height);
         Matrix uTransposed = MatrixAlgebra.transpose(u);
         Matrix m = MatrixAlgebra.matrixMultiply(u, uTransposed);
-        System.out.println("uu^t");
-        System.out.println(m);
         double magnitude = MatrixAlgebra.magnitudeVector(u);
         double scalar;
         if (magnitude == 0) {

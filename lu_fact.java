@@ -31,9 +31,6 @@ public class lu_fact {
     //lu[1] = U;
     public static Matrix[] factorLU(Matrix a) {
         long startTime = System.nanoTime();
-        if (a.height != a.width) {
-            throw new IllegalArgumentException("Matrix must be square!");
-        }
         //make a copy of the matrix to not mess with original
         Matrix copy = MatrixAlgebra.copyOf(a);
         Matrix L = MatrixAlgebra.identityMatrix(a.width);

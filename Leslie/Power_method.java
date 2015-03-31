@@ -13,21 +13,21 @@ public class power_method {
             //System.out.println((Math.abs(prevValue.get(0,0) - vector.get(0,0)) > tol));
             //int debug = 0;
             //System.out.println("Pre-Loop magnitude of PrevVal:" + MatrixAlgebra.magnitudeVector(prevValue));
-            double tolCounter =  MatrixAlgebra.magnitudeVector(vector) - MatrixAlgebra.magnitudeVector(prevValue);            
+            double tolCounter =  MatrixAlgebra.magnitudeVector(vector) - MatrixAlgebra.magnitudeVector(prevValue);
             while(tolCounter > tol && counter < 1000) {
                 //multiply Axn n=1,2,3...
                 Matrix iteration = MatrixAlgebra.matrixMultiply(a, vector);
                 //System.out.println("Iteration: \n" + iteration);
-                
+
                 //divide by lowest value
                 Matrix approximation = new Matrix(new double[iteration.height][1]);
                 for (int i = 0; i < approximation.height; i++) {
                     double value = iteration.get(i, 0) / (iteration.get(iteration.height - 1, 0));
-                    approximation.set(i, 0, value); 
+                    approximation.set(i, 0, value);
                 }
-                
+
                 //System.out.println("Approximation: \n" + approximation);
-                
+
                 //check error
                 Matrix error = new Matrix(new double [approximation.height][1]);
                 for (int i = 0; i < approximation.height; i++) {
@@ -35,7 +35,7 @@ public class power_method {
                     error.set(i, 0, value);
                 }
 //                System.out.println("Error: \n" + error);
-                
+
                 //update
                 for (int i = 0; i < vector.height; i++) {
                     approx.set(i, 0, approximation.get(i,0));
@@ -45,30 +45,30 @@ public class power_method {
 //                System.out.println("OldPrevValueLength: \n" + oldPrevValueLength);
                 prevValue = approximation;
                 vector = iteration;
-                
+
                 tolCounter = Math.abs(oldPrevValueLength - MatrixAlgebra.magnitudeVector(prevValue));
 //                System.out.println("VectorLength:" + MatrixAlgebra.magnitudeVector(vector));
 //                System.out.println("prevValueLength:" + MatrixAlgebra.magnitudeVector(prevValue));
 //                System.out.println("TolCount:" + tolCounter);
                 counter++;
-                
+
                 //debug
                 //debug++;
             }
             if (counter >= 1000) {
                 throw new RuntimeException("Over 1000 iterations. Stopped. Does not converge.");
             }
-            
-            
+
+
             Matrix eVector = approx;
-            
+
             //finding eValue
             Matrix aau = MatrixAlgebra.matrixMultiply(a, approx);
             //System.out.println("Numerator: \n" + aau);
             double eValue = dotProd(aau, approx) / dotProd(approx,approx);
             return new Result<Double, Matrix, Integer>(eValue, eVector, counter);
-            
-            
+
+
         }
 
         public static double dotProd(Matrix a, Matrix b){
@@ -81,9 +81,9 @@ public class power_method {
             }
             return sum;
         }
-        
+
         public static void main(String[] args) {
-            double[][] leslie = 
+            double[][] leslie =
                 {{0,1.2,1.1,.9,.1,0,0,0,0},
                 {.7,0,0,0,0,0,0,0,0},
                 {0,.85,0,0,0,0,0,0,0},
@@ -95,11 +95,10 @@ public class power_method {
                 {0,0,0,0,0,0,0,.40,0}};
             Matrix leslieMatrix = new Matrix(leslie);
             System.out.println(leslieMatrix);
-            double[][] x0 = 
+            double[][] x0 =
                 {{2.1},{1.9}, {1.8}, {2.1}, {2.0}, {1.7}, {1.2}, {0.9}, {0.5}};
             Matrix n = new Matrix(x0);
             System.out.println(n);
             System.out.println(largestEigen(leslieMatrix, n, .00000000000000001));
         }
     }
-
