@@ -171,7 +171,7 @@ public class MatrixAlgebra {
         }
         double[][] holder = new double[m.height][1];
         for (int row = 0; row < m.height; row++) {
-            holder[row][0] = m.get(row, 0);
+            holder[row][0] = m.get(row, column);
         }
 
         return new Matrix(holder);

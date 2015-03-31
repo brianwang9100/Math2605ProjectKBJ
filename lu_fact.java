@@ -7,13 +7,19 @@ public class lu_fact {
 
     public static void factorLU() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter name of the file to be read");
-        String name = scanner.nextLine();
-        try {
-            Matrix A = MatrixReader.readFile(name);
-            factorLU(A);
-        } catch(IOException e) {
-            System.out.println("File name not valid");
+        while(true) {
+            try {
+                System.out.println("(LU) Enter name of the file to be read OR type NO to quit");
+                String name = scanner.nextLine();
+                if (name.equals("NO")) {
+                    System.exit(0);
+                }
+                Matrix A = MatrixReader.readFile(name);
+                factorLU(A);
+            } catch(IOException e) {
+                System.out.println("File name not valid");
+                System.out.println();
+            }
         }
         // double[][] matrix = {{8, 2, 9}, {4, 9, 4}, {6, 7, 9}};
         // Matrix A = new Matrix(matrix);
@@ -22,7 +28,8 @@ public class lu_fact {
 
     //lu[0] = L;
     //lu[1] = U;
-    public static void factorLU(Matrix a) {
+    public static Matrix[] factorLU(Matrix a) {
+        long startTime = System.nanoTime();
         if (a.height != a.width) {
             throw new IllegalArgumentException("Matrix must be square!");
         }
@@ -47,11 +54,13 @@ public class lu_fact {
         Matrix LU = MatrixAlgebra.matrixMultiply(lu[0], lu[1]);
 
         Matrix errorMatrix = MatrixAlgebra.matrixSubtract(LU, a);
-        // System.out.println("LU - A");
-        // System.out.println(errorMatrix);
-
         double error = MatrixAlgebra.findAbsoluteMax(errorMatrix);
-        System.out.printf("||LU - A|| Error = %.18f\n", error);
+        System.out.printf("||LU - A|| Error = %.24f\n", error);
+        long timeElapsed = System.nanoTime() - startTime;
+        System.out.println("Time Elapsed: " + timeElapsed + " nanoseconds");
+        System.out.println();
+
+        return lu;
     }
 
     private static void factorLU(Matrix[] lu, Matrix m) {

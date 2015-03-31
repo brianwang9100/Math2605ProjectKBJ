@@ -53,4 +53,18 @@ public class MatrixReader {
             System.out.println("Input threw IOException");
         }
     }
+
+    public static Matrix convertToA(Matrix Ab) {
+        double[][] holder = new double[Ab.height][Ab.width - 1];
+        for (int row = 0; row < Ab.height; row++) {
+            for (int col = 0; col < Ab.width - 1; col++) {
+                holder[row][col] = Ab.get(row, col);
+            }
+        }
+        return new Matrix(holder);
+    }
+
+    public static Matrix convertTob(Matrix Ab) {
+        return MatrixAlgebra.vectorOfMatrix(Ab, Ab.width - 1);
+    }
 }

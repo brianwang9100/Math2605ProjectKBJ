@@ -8,13 +8,19 @@ public class qr_fact_househ {
 
     public static void factorHH() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter name of the file to be read");
-        String name = scanner.nextLine();
-        try {
-            Matrix A = MatrixReader.readFile(name);
-            factorHH(A);
-        } catch(IOException e) {
-            System.out.println("File name not valid");
+        while(true) {
+            try {
+                System.out.println("(HouseHolderQR) Enter name of the file to be read OR type NO to quit");
+                String name = scanner.nextLine();
+                if (name.equals("NO")) {
+                    System.exit(0);
+                }
+                Matrix A = MatrixReader.readFile(name);
+                factorHH(A);
+            } catch(IOException e) {
+                System.out.println("File name not valid");
+                System.out.println();
+            }
         }
 
         // double[][] holder = {{4, 3, 0}, {3, 1, 0}, {0, 0 , 1}};
@@ -22,7 +28,8 @@ public class qr_fact_househ {
         // factorHH(A);
     }
 
-    public static void factorHH(Matrix a) {
+    public static Matrix[] factorHH(Matrix a) {
+        long startTime = System.nanoTime();
         if (a.height != a.width) {
             throw new IllegalArgumentException("Matrix must be square!");
         }
@@ -47,7 +54,12 @@ public class qr_fact_househ {
 
         Matrix errorMatrix = MatrixAlgebra.matrixSubtract(QR, a);
         double error = MatrixAlgebra.findAbsoluteMax(errorMatrix);
-        System.out.printf("||QR - A|| Error = %.18f\n", error);
+        System.out.printf("||QR - A|| Error = %.24f\n", error);
+        long timeElapsed = System.nanoTime() - startTime;
+        System.out.println("Time Elapsed: " + timeElapsed + " nanoseconds");
+        System.out.println();
+
+        return qr;
     }
 
     private static void factorHH(Matrix[] qr, Matrix current, int index) {
