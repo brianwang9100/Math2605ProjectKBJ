@@ -55,8 +55,8 @@ public class power_method {
                 //debug
                 //debug++;
             }
-            if (counter >= 1000) {
-                throw new RuntimeException("Over 1000 iterations. Stopped. Does not converge.");
+            if (counter >= 100) {
+                throw new RuntimeException("Over 100 iterations. Stopped. Does not converge.");
             }
 
 
