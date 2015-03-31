@@ -1,5 +1,5 @@
 import java.util.LinkedList;
-public class Encoding {
+public class encoding {
     public static Matrix y0, y1, a0, a1;
     public static Matrix encoding(int n) {
         //make random stream x
