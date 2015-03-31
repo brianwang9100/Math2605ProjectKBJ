@@ -9,7 +9,8 @@ public class lu_fact {
         Scanner scanner = new Scanner(System.in);
         while(true) {
             try {
-                System.out.println("(LU) Enter name of the file to be read OR type NO to quit");
+                System.out.println("(LU) Enter name of the file to be read");
+                System.out.println("(LU) Type NO to quit");
                 String name = scanner.nextLine();
                 if (name.equals("NO")) {
                     System.exit(0);
@@ -70,17 +71,24 @@ public class lu_fact {
         int pivotCol = 0;
         while (pivotRow != m.height - 1 && pivotCol != m.width - 1) {
             double pivotValue = m.get(pivotRow, pivotCol);
-            for (int row = pivotRow + 1; row < m.height; row++) {
-                double valueToBeChanged = m.get(row, pivotCol);
-                double scalar = valueToBeChanged/pivotValue;
-                if (scalar * pivotValue + valueToBeChanged != 0) {
-                    scalar *= -1;
-                }
-                m.rowScalarMultiply(scalar, pivotRow);
-                m.rowAdd(pivotRow, row);
-                m.rowScalarMultiply(1/scalar, pivotRow);
+            if (pivotValue != 0) {                for (int row = pivotRow + 1; row < m.height; row++) {
 
-                L.set(row, pivotCol, -1 * scalar);
+                    double valueToBeChanged = m.get(row, pivotCol);
+                    double scalar = valueToBeChanged/pivotValue;
+                    if (scalar * pivotValue + valueToBeChanged != 0) {
+                        scalar *= -1;
+                    }
+                    m.rowScalarMultiply(scalar, pivotRow);
+                    m.rowAdd(pivotRow, row);
+                    m.rowScalarMultiply(1 / scalar, pivotRow);
+                    // for (int col = 0; col < m.width; col++) {
+                    //     double tempPValue = m.get(pivotRow, col);
+                    //     double value = m.get(row, col);
+                    //     m.set(row, col, value + scalar * tempPValue);
+                    // }
+
+                    L.set(row, pivotCol, -1 * scalar);
+                }
             }
             pivotRow++;
             pivotCol++;

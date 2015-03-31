@@ -10,7 +10,8 @@ public class qr_fact_givens {
         Scanner scanner = new Scanner(System.in);
         while(true) {
             try {
-                System.out.println("(GivensQR) Enter name of the file to be read OR type NO to quit");
+                System.out.println("(GivensQR) Enter name of the file to be read");
+                System.out.println("(GivensQR) Type NO to quit");
                 String name = scanner.nextLine();
                 if (name.equals("NO")) {
                     System.exit(0);
@@ -29,6 +30,7 @@ public class qr_fact_givens {
     }
 
     public static Matrix[] factorG(Matrix a) {
+        long startTime = System.nanoTime();
         if (a.height != a.width) {
             throw new IllegalArgumentException("Matrix must be square!");
         }
@@ -54,7 +56,6 @@ public class qr_fact_givens {
         long timeElapsed = System.nanoTime() - startTime;
         System.out.println("Time Elapsed: " + timeElapsed + " nanoseconds");
         System.out.println();
-
         return qr;
     }
 

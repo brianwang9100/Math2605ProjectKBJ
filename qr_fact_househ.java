@@ -10,7 +10,8 @@ public class qr_fact_househ {
         Scanner scanner = new Scanner(System.in);
         while(true) {
             try {
-                System.out.println("(HouseHolderQR) Enter name of the file to be read OR type NO to quit");
+                System.out.println("(HouseHolderQR) Enter name of the file to be read");
+                System.out.println("(HouseHolderQR) Type NO to quit");
                 String name = scanner.nextLine();
                 if (name.equals("NO")) {
                     System.exit(0);

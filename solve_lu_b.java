@@ -9,17 +9,15 @@ public class solve_lu_b {
         Scanner scanner = new Scanner(System.in);
         while(true) {
             try {
-                System.out.println("(QRSolve) Enter name of the file to be read OR type NO to quit");
+                System.out.println("(QRSolve) Enter name of the file to be read");
+                System.out.println("(QRSolve) Type NO to quit");
                 String name = scanner.nextLine();
                 if (name.equals("NO")) {
                     System.exit(0);
                 }
                 Matrix Ab = MatrixReader.readFile(name);
-                System.out.println(Ab);
                 Matrix A = MatrixReader.convertToA(Ab);
-                System.out.println(A);
                 Matrix b = MatrixReader.convertTob(Ab);
-                System.out.println(b);
                 solveLU(A, b);
             } catch(IOException e) {
                 System.out.println("File name not valid");
@@ -33,31 +31,38 @@ public class solve_lu_b {
         Matrix L = lu[0];
         Matrix U = lu[1];
         //Ly = b
-        double[][] holder = new double[A.height][1];
-        holder[0][0] = b.get(0, 0);
+        double[][] holderY = new double[A.height][1];
+        holderY[0][0] = b.get(0, 0);
         int row;
         int col;
         for(row = 1; row < L.height; row++) {
-            double bValue = b.get(row, 0);
+            double sum = 0;
             for (col = 0; col < row; col++) {
-                bValue = bValue - (L.get(row, col) * b.get(col, 0));
+                sum += L.get(row, col) * holderY[col][0];
             }
-            holder[row][0] = bValue;
+            holderY[row][0] = b.get(row, 0) - sum;
         }
-        Matrix y = new Matrix(holder);
+        Matrix y = new Matrix(holderY);
+        System.out.println("y");
+        System.out.println(y);
 
         //Ux = y;
-        holder = new double[A.height][1];
-        holder[A.height - 1][0] = (y.get(A.height - 1, 0) / L.get(L.height - 1, L.width - 1));
-        for (row = L.height - 2; row >= 0; row--) {
-            double yValue = y.get(row, 0);
-            for (col = L.width = 1; col > row; col--) {
-                yValue = yValue - (L.get(row, col)* y.get(col, 0));
+        double[][] holderX = new double[A.height][1];
+        holderX[A.height - 1][0] = (y.get(A.height - 1, 0) / U.get(U.height - 1, U.width - 1));
+        System.out.println("row of x: " + (A.height - 1));
+        System.out.println("value at row: " + holderX[A.height - 1][0]);
+        for (row = U.height - 2; row >= 0; row--) {
+            double sum = 0;
+            for (col = U.width - 1; col > row; col--) {
+                sum += U.get(row, col)* holderX[col][0];
             }
-            holder[row][0] = (yValue / L.get(row, col));
+            System.out.println("sum for row: " + sum);
+            holderX[row][0] = (y.get(row, 0) - sum) / U.get(row, col);
+            System.out.println("row of x: " + row);
+            System.out.println("value at row: " + holderX[row][0]);
         }
 
-        Matrix x = new Matrix(holder);
+        Matrix x = new Matrix(holderX);
 
         System.out.println("xSol:");
         System.out.println(x);
