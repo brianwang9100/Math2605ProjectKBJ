@@ -1,4 +1,3 @@
-
 public class power_method {
 
         public static Result<Double, Matrix, Integer> largestEigen(Matrix a, Matrix u, double tol) {
@@ -8,19 +7,26 @@ public class power_method {
                 prevValue.set(i, 0, 0);
             }
             Matrix vector = u;
-            Matrix approximation = null;
+            //System.out.println("Pre-Loop magnitude:" + MatrixAlgebra.magnitudeVector(vector));
             int counter = 0;
-            
-            while(Math.abs(prevValue.get(0,0) - vector.get(0,0)) > tol && counter < 300) {
+            Matrix approx = new Matrix(new double[vector.height][1]);
+            //System.out.println((Math.abs(prevValue.get(0,0) - vector.get(0,0)) > tol));
+            //int debug = 0;
+            //System.out.println("Pre-Loop magnitude of PrevVal:" + MatrixAlgebra.magnitudeVector(prevValue));
+            double tolCounter =  MatrixAlgebra.magnitudeVector(vector) - MatrixAlgebra.magnitudeVector(prevValue);            
+            while(tolCounter > tol && counter < 1000) {
                 //multiply Axn n=1,2,3...
                 Matrix iteration = MatrixAlgebra.matrixMultiply(a, vector);
+                //System.out.println("Iteration: \n" + iteration);
                 
                 //divide by lowest value
-                approximation = new Matrix(new double[iteration.height][1]);
+                Matrix approximation = new Matrix(new double[iteration.height][1]);
                 for (int i = 0; i < approximation.height; i++) {
                     double value = iteration.get(i, 0) / (iteration.get(iteration.height - 1, 0));
-                    approximation.set(i, 0, value);
+                    approximation.set(i, 0, value); 
                 }
+                
+                //System.out.println("Approximation: \n" + approximation);
                 
                 //check error
                 Matrix error = new Matrix(new double [approximation.height][1]);
@@ -28,28 +34,43 @@ public class power_method {
                     double value = Math.abs(prevValue.get(i, 0) - approximation.get(i, 0));
                     error.set(i, 0, value);
                 }
+                System.out.println("Error: \n" + error);
                 
                 //update
+                for (int i = 0; i < vector.height; i++) {
+                    approx.set(i, 0, approximation.get(i,0));
+                }
+                System.out.println("approx: \n" + approx);
+                double oldPrevValueLength = MatrixAlgebra.magnitudeVector(prevValue);
+                System.out.println("OldPrevValueLength: \n" + oldPrevValueLength);
                 prevValue = approximation;
                 vector = iteration;
+                
+                tolCounter = Math.abs(oldPrevValueLength - MatrixAlgebra.magnitudeVector(prevValue));
+                System.out.println("VectorLength:" + MatrixAlgebra.magnitudeVector(vector));
+                System.out.println("prevValueLength:" + MatrixAlgebra.magnitudeVector(prevValue));
+                System.out.println("TolCount:" + tolCounter);
                 counter++;
                 
+                //debug
+                //debug++;
             }
-            if (counter > 300) {
-                throw new RuntimeException("Over 300 iterations. Stopped.");
+            if (counter >= 1000) {
+                throw new RuntimeException("Over 1000 iterations. Stopped. Does not converge.");
             }
-            Matrix eVector = approximation;
+            
+            
+            Matrix eVector = approx;
             
             //finding eValue
-            Matrix aau = MatrixAlgebra.matrixMultiply(a, approximation);
-            double eValue = dotProd(aau, approximation) / dotProd(approximation,approximation);
+            Matrix aau = MatrixAlgebra.matrixMultiply(a, approx);
+            //System.out.println("Numerator: \n" + aau);
+            double eValue = dotProd(aau, approx) / dotProd(approx,approx);
             return new Result<Double, Matrix, Integer>(eValue, eVector, counter);
             
             
         }
-        
 
-        
         public static double dotProd(Matrix a, Matrix b){
             if(a.height != b.height){
                 throw new IllegalArgumentException("dimensions don't agree");
@@ -61,21 +82,20 @@ public class power_method {
             return sum;
         }
         
-        public static void main(String[] args) {
-            Matrix m = new Matrix(new double[2][2]);
-            m.set(0, 0, 2);
-            m.set(0, 1, -12);
-            m.set(1, 0, 1);
-            m.set(1, 1, -10);
-            
-
-            System.out.println(m);
-            Matrix n = new Matrix(new double[2][1]);
-            n.set(0,0,1);
-            n.set(1,0,1);
-            System.out.println(n);
-            System.out.println(largestEigen(m, n, .01));
-        }
-        
+//        public static void main(String[] args) {
+//            Matrix m = new Matrix(new double[2][2]);
+//            m.set(0, 0, 2);
+//            m.set(0, 1, -12);
+//            m.set(1, 0, 1);
+//            m.set(1, 1, -5);
+//            
+//
+//            System.out.println(m);
+//            Matrix n = new Matrix(new double[2][1]);
+//            n.set(0,0,1);
+//            n.set(1,0,1);
+//            System.out.println(n);
+//            System.out.println(largestEigen(m, n, .0000000000001));
+//        }
     }
 
