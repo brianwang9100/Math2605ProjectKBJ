@@ -11,10 +11,11 @@ public class hilbert {
             System.out.println("(HilbertSolve) Type the size n of Hilbert to create");
             System.out.println("(HilbertSolve) Type NO to exit");
             try {
-                int n = scanner.nextInt();
-                if (n <= 0) {
-                    System.out.println("Invalid integer n");
+                String input = scanner.nextLine();
+                if (input.equals("NO")) {
+                    System.exit(0);
                 } else {
+                    int n = Integer.parseInt(input);
                     Matrix H = createHilbertMatrix(n);
                     Matrix b = createb(n);
 
@@ -33,13 +34,8 @@ public class hilbert {
                     System.out.println("-------------------------------------");
                     solve_qr_b.solveQRG(H, b);
                 }
-            } catch(InputMismatchException e) {
-                System.out.println(e.getMessage());
-                if (e.getMessage().equals("NO")) {
-                    System.exit(0);
-                } else {
-                    System.out.println("Invalid integer n");
-                }
+            } catch(NumberFormatException e) {
+                System.out.println("Invalid input");
             }
         }
     }

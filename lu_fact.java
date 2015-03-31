@@ -30,7 +30,7 @@ public class lu_fact {
     //lu[0] = L;
     //lu[1] = U;
     public static Matrix[] factorLU(Matrix a) {
-        long startTime = System.nanoTime();
+        // long startTime = System.nanoTime();
         //make a copy of the matrix to not mess with original
         Matrix copy = MatrixAlgebra.copyOf(a);
         Matrix L = MatrixAlgebra.identityMatrix(a.width);
@@ -54,8 +54,8 @@ public class lu_fact {
         Matrix errorMatrix = MatrixAlgebra.matrixSubtract(LU, a);
         double error = MatrixAlgebra.findAbsoluteMax(errorMatrix);
         System.out.printf("||LU - A|| Error = %.24f\n", error);
-        long timeElapsed = System.nanoTime() - startTime;
-        System.out.println("Time Elapsed: " + timeElapsed + " nanoseconds");
+        // long timeElapsed = System.nanoTime() - startTime;
+        // System.out.println("Time Elapsed: " + timeElapsed + " nanoseconds");
         System.out.println();
 
         return lu;

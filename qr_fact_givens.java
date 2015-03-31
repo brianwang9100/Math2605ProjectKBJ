@@ -26,7 +26,7 @@ public class qr_fact_givens {
     }
 
     public static Matrix[] factorG(Matrix a) {
-        long startTime = System.nanoTime();
+        // long startTime = System.nanoTime();
         Matrix[] qr = new Matrix[2];
         Matrix Q = MatrixAlgebra.identityMatrix(a.width);
         Matrix R = a;
@@ -46,8 +46,8 @@ public class qr_fact_givens {
         Matrix errorMatrix = MatrixAlgebra.matrixSubtract(QR, a);
         double error = MatrixAlgebra.findAbsoluteMax(errorMatrix);
         System.out.printf("||QR - A|| Error = %.24f\n", error);
-        long timeElapsed = System.nanoTime() - startTime;
-        System.out.println("Time Elapsed: " + timeElapsed + " nanoseconds");
+        // long timeElapsed = System.nanoTime() - startTime;
+        // System.out.println("Time Elapsed: " + timeElapsed + " nanoseconds");
         System.out.println();
         return qr;
     }

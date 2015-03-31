@@ -26,7 +26,7 @@ public class qr_fact_househ {
     }
 
     public static Matrix[] factorHH(Matrix a) {
-        long startTime = System.nanoTime();
+        // long startTime = System.nanoTime();
         Matrix copy = MatrixAlgebra.copyOf(a);
         Matrix[] qr = new Matrix[2];
         Matrix Q = MatrixAlgebra.identityMatrix(a.width);
@@ -47,8 +47,8 @@ public class qr_fact_househ {
         Matrix errorMatrix = MatrixAlgebra.matrixSubtract(QR, a);
         double error = MatrixAlgebra.findAbsoluteMax(errorMatrix);
         System.out.printf("||QR - A|| Error = %.24f\n", error);
-        long timeElapsed = System.nanoTime() - startTime;
-        System.out.println("Time Elapsed: " + timeElapsed + " nanoseconds");
+        // long timeElapsed = System.nanoTime() - startTime;
+        // System.out.println("Time Elapsed: " + timeElapsed + " nanoseconds");
         System.out.println();
 
         return qr;
