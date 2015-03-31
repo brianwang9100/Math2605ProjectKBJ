@@ -1,22 +1,5 @@
 public class Gauss_seidel {
     public static double gauss_seidel(Matrix m, Matrix b, double tol) {
-        /*//set l d and u
-
-        //s = d
-        Matrix s = new Matrix(
-            new double[m.height][m.width]);
-        //t = l + u
-        Matrix t = new Matrix(
-            new double[m.height][m.width]);
-        for (int row = 0; row < m.height; row++) {
-            for (int col = 0; col < m.width; col++) {
-                if (col == row) {
-                    s.set(row, col, m.get[row, col]);
-                } else {
-                    t.set(row, col, m.get[row, col]);
-                }
-            }
-        }*/
         double error = tol;
         double prevValue;
         double curValue = 0;
