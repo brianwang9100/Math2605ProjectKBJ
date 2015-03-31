@@ -34,22 +34,22 @@ public class power_method {
                     double value = Math.abs(prevValue.get(i, 0) - approximation.get(i, 0));
                     error.set(i, 0, value);
                 }
-                System.out.println("Error: \n" + error);
+//                System.out.println("Error: \n" + error);
                 
                 //update
                 for (int i = 0; i < vector.height; i++) {
                     approx.set(i, 0, approximation.get(i,0));
                 }
-                System.out.println("approx: \n" + approx);
+//                System.out.println("approx: \n" + approx);
                 double oldPrevValueLength = MatrixAlgebra.magnitudeVector(prevValue);
-                System.out.println("OldPrevValueLength: \n" + oldPrevValueLength);
+//                System.out.println("OldPrevValueLength: \n" + oldPrevValueLength);
                 prevValue = approximation;
                 vector = iteration;
                 
                 tolCounter = Math.abs(oldPrevValueLength - MatrixAlgebra.magnitudeVector(prevValue));
-                System.out.println("VectorLength:" + MatrixAlgebra.magnitudeVector(vector));
-                System.out.println("prevValueLength:" + MatrixAlgebra.magnitudeVector(prevValue));
-                System.out.println("TolCount:" + tolCounter);
+//                System.out.println("VectorLength:" + MatrixAlgebra.magnitudeVector(vector));
+//                System.out.println("prevValueLength:" + MatrixAlgebra.magnitudeVector(prevValue));
+//                System.out.println("TolCount:" + tolCounter);
                 counter++;
                 
                 //debug
@@ -82,20 +82,24 @@ public class power_method {
             return sum;
         }
         
-//        public static void main(String[] args) {
-//            Matrix m = new Matrix(new double[2][2]);
-//            m.set(0, 0, 2);
-//            m.set(0, 1, -12);
-//            m.set(1, 0, 1);
-//            m.set(1, 1, -5);
-//            
-//
-//            System.out.println(m);
-//            Matrix n = new Matrix(new double[2][1]);
-//            n.set(0,0,1);
-//            n.set(1,0,1);
-//            System.out.println(n);
-//            System.out.println(largestEigen(m, n, .0000000000001));
-//        }
+        public static void main(String[] args) {
+            double[][] leslie = 
+                {{0,1.2,1.1,.9,.1,0,0,0,0},
+                {.7,0,0,0,0,0,0,0,0},
+                {0,.85,0,0,0,0,0,0,0},
+                {0,0,.9,0,0,0,0,0,0},
+                {0,0,0,.9,0,0,0,0,0},
+                {0,0,0,0,.88,0,0,0,0},
+                {0,0,0,0,0,.8,0,0,0},
+                {0,0,0,0,0,0,.77,0,0},
+                {0,0,0,0,0,0,0,.40,0}};
+            Matrix leslieMatrix = new Matrix(leslie);
+            System.out.println(leslieMatrix);
+            double[][] x0 = 
+                {{2.1},{1.9}, {1.8}, {2.1}, {2.0}, {1.7}, {1.2}, {0.9}, {0.5}};
+            Matrix n = new Matrix(x0);
+            System.out.println(n);
+            System.out.println(largestEigen(leslieMatrix, n, .00000000000000001));
+        }
     }
 
