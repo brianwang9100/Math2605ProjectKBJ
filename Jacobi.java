@@ -1,28 +1,24 @@
-public class Jacobi {
-    public static double jacobi(Matrix m, Matrix b, double tol) {
-        /*//set l d and u
-
-        //s = d
-        Matrix s = new Matrix(
-            new double[m.height][m.width]);
+public class jacobi {
+    public static int jacobi(Matrix mb, Matrix x0, double tol) {
+        Matrix m = new Matrix(
+            new double[mb.height][mb.width - 1]);
         //t = l + u
-        Matrix t = new Matrix(
-            new double[m.height][m.width]);
-        for (int row = 0; row < m.height; row++) {
-            for (int col = 0; col < m.width; col++) {
-                if (col == row) {
-                    s.set(row, col, m.get[row, col]);
+        Matrix b = new Matrix(
+            new double[m.height][1]);
+        for (int row = 0; row < mb.height; row++) {
+            for (int col = 0; col < mb.width; col++) {
+                if (col == mb.width - 1) {
+                    b.set(row, 0, mb.get(row, col));
                 } else {
-                    t.set(row, col, m.get[row, col]);
+                    m.set(row, col, mb.get(row, col));
                 }
             }
-        }*/
+        }
         double error = tol;
         double prevValue;
         double curValue = 0;
-        double[][] xkArr = {{1}, {1}};
         int k = 0;
-        Matrix xk = new Matrix(xkArr);
+        Matrix xk = x0;
         while (error >= tol) {
             k++;
             double omega;
@@ -40,22 +36,20 @@ public class Jacobi {
             }
             curValue = MatrixAlgebra.magnitudeVector(result);
             xk = result;
-            System.out.println(result);
             error = Math.abs(curValue - prevValue);
-            System.out.println("Error:" + error);
-            //System.out.println(error);
         }
-        return error;
+        return k;
         //jacobi method
         //xk+1 = S^-1 * T * xk + S^-1 * b
     }
     public static void main(String[] args) {
         //double[][] matrix1 = {{8, 2, 9}, {4, 9, 4}, {6, 7, 9}};
         //double[][] matrix2 = {{3}, {4}, {5}};
-        double[][] matrix1 = {{2, 1}, {5, 7}};
-        double[][] matrix2 = {{11}, {13}};
-        Matrix m = new Matrix(matrix1);
-        Matrix b = new Matrix(matrix2);
-        System.out.println(jacobi(m, b, .2));
+        double[][] x0 = {{1}, {1}};
+        double[][] matrix = {{2, 1, 11}, {5, 7, 13}};
+        //double[][] matrix2 = {{11}, {13}};
+        Matrix mb = new Matrix(matrix);
+        //Matrix b = new Matrix(matrix2);
+        System.out.println(jacobi(mb, new Matrix(x0), .2));
     }
 }

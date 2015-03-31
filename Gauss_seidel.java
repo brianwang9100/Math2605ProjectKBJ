@@ -1,11 +1,39 @@
-public class Gauss_seidel {
-    public static double gauss_seidel(Matrix m, Matrix b, double tol) {
+public class gauss_seidel {
+    public static int gauss_seidel(Matrix mb, Matrix x0, double tol) {
         double error = tol;
         double prevValue;
         double curValue = 0;
-        double[][] resultArr = {{1}, {1}};
+        //double[][] resultArr = {{1}, {1}};
         int k = 0;
-        Matrix result = new Matrix(resultArr);
+        if (x0.height != mb.height) {
+            Matrix temp = new Matrix(new double[mb.height][1]);
+            for (int j = 0; j < mb.height; j++) {
+                if (j >= x0.height) {
+                    temp.set(j, 0, 0);
+                } else {
+                    temp.set(j, 0, x0.get(j, 0));
+                }
+            }
+            x0 = temp;
+        }
+        //System.out.println(x0);
+        Matrix result = x0;
+
+        Matrix m = new Matrix(
+            new double[mb.height][mb.width - 1]);
+        //t = l + u
+        Matrix b = new Matrix(
+            new double[m.height][1]);
+        for (int row = 0; row < mb.height; row++) {
+            for (int col = 0; col < mb.width; col++) {
+                if (col == mb.width - 1) {
+                    b.set(row, 0, mb.get(row, col));
+                } else {
+                    m.set(row, col, mb.get(row, col));
+                }
+            }
+        }
+
         while (error >= tol) {
             k++;
             double omega;
@@ -17,26 +45,29 @@ public class Gauss_seidel {
                         omega += (m.get(row, col) * result.get(col, 0));
                     }
                 }
+                //System.out.println(m);
                 result.set(row, 0,
-                    (b.get(row, 0) - omega) / m.get(row, row));
+                    Math.abs(((b.get(row, 0) - omega) / m.get(row, row)) % 2));
             }
             curValue = MatrixAlgebra.magnitudeVector(result);
-            System.out.println(result);
+            //System.out.println(result);
             error = Math.abs(curValue - prevValue);
-            System.out.println("Error:" + error);
+            //System.out.println("Error:" + error);
             //System.out.println(error);
         }
-        return error;
+        System.out.println("x = " + result);
+        return k;
         //jacobi method
         //xk+1 = S^-1 * T * xk + S^-1 * b
     }
     public static void main(String[] args) {
         //double[][] matrix1 = {{8, 2, 9}, {4, 9, 4}, {6, 7, 9}};
         //double[][] matrix2 = {{3}, {4}, {5}};
-        double[][] matrix1 = {{16, 3}, {7, -11}};
-        double[][] matrix2 = {{11}, {13}};
+        double[][] matrix1 = {{16, 3, 11}, {7, -11, 13}};
+        double[][] x0 = {{1}, {1}};
+        //double[][] matrix2 = {{11}, {13}};
         Matrix m = new Matrix(matrix1);
-        Matrix b = new Matrix(matrix2);
-        System.out.println(gauss_seidel(m, b, .2));
+        //Matrix b = new Matrix(matrix2);
+        System.out.println(gauss_seidel(m, new Matrix(x0), .2));
     }
 }
