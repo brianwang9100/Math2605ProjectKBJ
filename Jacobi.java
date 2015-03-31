@@ -1,4 +1,4 @@
-public class Jacobi {
+public class jacobi {
     public static double jacobi(Matrix m, Matrix b, double tol) {
         /*//set l d and u
 

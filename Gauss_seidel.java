@@ -1,4 +1,4 @@
-public class Gauss_seidel {
+public class gauss_seidel {
     public static double gauss_seidel(Matrix m, Matrix b, double tol) {
         double error = tol;
         double prevValue;

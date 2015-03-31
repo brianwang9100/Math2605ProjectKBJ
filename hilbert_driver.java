@@ -1,6 +1,6 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
-public class hilbert {
+public class hilbert_driver {
     public static void main(String[] args) {
         hilbertSolve();
     }
@@ -11,6 +11,7 @@ public class hilbert {
             System.out.println("(HilbertSolve) Type the size n of Hilbert to create");
             System.out.println("(HilbertSolve) Type NO to exit");
             try {
+
                 String input = scanner.nextLine();
                 if (input.equals("NO")) {
                     System.exit(0);
