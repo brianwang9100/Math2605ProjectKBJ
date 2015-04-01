@@ -9,13 +9,13 @@ public class power_method {
             Matrix vector = u;
             int counter = 0;
             Matrix approx = new Matrix(new double[vector.height][1]);
-            double tolCounter =  MatrixAlgebra.magnitudeVector(vector) - MatrixAlgebra.magnitudeVector(prevValue);            
+            double tolCounter =  MatrixAlgebra.magnitudeVector(vector) - MatrixAlgebra.magnitudeVector(prevValue);
             while(tolCounter > tol && counter < 100) {
                 Matrix iteration = MatrixAlgebra.matrixMultiply(a, vector);
                 Matrix approximation = new Matrix(new double[iteration.height][1]);
                 for (int i = 0; i < approximation.height; i++) {
                     double value = iteration.get(i, 0) / (iteration.get(iteration.height - 1, 0));
-                    approximation.set(i, 0, value); 
+                    approximation.set(i, 0, value);
                 }
                 Matrix error = new Matrix(new double [approximation.height][1]);
                 for (int i = 0; i < approximation.height; i++) {
@@ -27,7 +27,7 @@ public class power_method {
                 }
                 double oldPrevValueLength = MatrixAlgebra.magnitudeVector(prevValue);
                 prevValue = approximation;
-                vector = iteration;   
+                vector = iteration;
                 tolCounter = Math.abs(oldPrevValueLength - MatrixAlgebra.magnitudeVector(prevValue));
                 counter++;
             }
@@ -39,7 +39,7 @@ public class power_method {
             double eValue = dotProd(aau, approx) / dotProd(approx,approx);
             return new Result<Double, Matrix, Integer>(eValue, eVector, counter);
             
-            
+
         }
 
         public static double dotProd(Matrix a, Matrix b){
@@ -52,9 +52,9 @@ public class power_method {
             }
             return sum;
         }
-        
+
         public static void main(String[] args) {
-            double[][] leslie = 
+            double[][] leslie =
                 {{0,.6,1.1,.9,.1,0,0,0,0},
                 {.7,0,0,0,0,0,0,0,0},
                 {0,.85,0,0,0,0,0,0,0},
@@ -65,10 +65,9 @@ public class power_method {
                 {0,0,0,0,0,0,.77,0,0},
                 {0,0,0,0,0,0,0,.40,0}};
             Matrix leslieMatrix = new Matrix(leslie);
-            double[][] x0 = 
+            double[][] x0 =
                 {{5.1875},{4.445}, {1.2495}, {1.4535}, {1.4580}, {1.6632}, {1.408000}, {1.047200}, {0.3696}};
             Matrix n = new Matrix(x0);
             System.out.println(largestEigen(leslieMatrix, n, .00000001));
         }
     }
-

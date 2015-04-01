@@ -1,12 +1,12 @@
------------------------------
+--------------------------------------------------------------------------------
 Math2605Project
 Brian Wang
 Wei Wang
 Karl Nicodemus
 
------------------------------
+--------------------------------------------------------------------------------
 Hilbert (Part 1)
------------------------------
+--------------------------------------------------------------------------------
 -----------------------------
 1. lu_fact
 
@@ -95,7 +95,35 @@ java solve_lu_b
 The program should prompt for the size of the array. Enter the size of the array (int) and press enter.
 
 -----------------------------
+5. Discussion
+
+Please open the file: HilbertDiscussion.pdf to view the discussion
+
+--------------------------------------------------------------------------------
 Convolutional Codes (Part 2)
------------------------------
+--------------------------------------------------------------------------------
 -----------------------------
 1. Encoding
+
+encoding:
+Input: size of stream x
+Output: stream y
+
+To execute Encoding (encoding.java)
+javac encoding.java
+java encoding
+
+The program should prompt for the size of the stream. Please input the size of the desired stream (int). The program should randomly generate a stream x and output it's encoded stream y.
+
+-----------------------------
+2. Decoding with Jacobi and Gauss-Siedel
+
+decoding:
+Input: stream y
+Output: stream x (with Jacobi), stream x (with Gauss-Siedel)
+
+To execute Decoding (decoding.java)
+javac decoding.java
+java decoding
+
+The program should
