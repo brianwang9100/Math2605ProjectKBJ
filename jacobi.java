@@ -102,17 +102,16 @@ public class jacobi {
                     if (row != col) {
                         omega += (m.get(row, col) * xk.get(col, 0));
                     }
-                    omega = Math.abs(omega);
                 }
                 if (row < m.height && row < m.width) {
                     if (isBinary) {
                         result.set(row, 0,
                             Math.abs(((b.get(row, 0) - omega) /
-                                m.get(row, row))));
+                                m.get(row, row)) % 2));
                     } else {
                         result.set(row, 0,
-                            Math.abs(((b.get(row, 0) - omega) /
-                                m.get(row, row)) % 2));
+                            (b.get(row, 0) - omega) /
+                                m.get(row, row));
                     }
                 }
             }
