@@ -11,7 +11,7 @@ public class convolutional_codes_driver {
         int n = Integer.parseInt(s.nextLine());
         encoding.encoding(n);
         System.out.println("\n");
-        /*System.out.print("(ConvolutionalCodes) " +
+        System.out.print("(ConvolutionalCodes) " +
             "Enter the path of the .dat file containing " +
             "the augmented matrix [A][b] for Jacobi and Gauss-Seidel: ");
         Matrix ab = null;
@@ -42,7 +42,7 @@ public class convolutional_codes_driver {
         System.out.print("(ConvolutionalCodes) Enter the error tolerance number: ");
         double tol = Double.parseDouble(s.nextLine());
         jacobi.jacobi(ab, x0, tol);
-        gauss_seidel.gauss_seidel(ab, x0, tol);*/
+        gauss_seidel.gauss_seidel(ab, x0, tol);
 
         System.out.println("(ConvolutionalCodes) Enter the numbers for the y input string"
             + " one by one, type d when done: ");

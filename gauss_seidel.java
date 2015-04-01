@@ -1,5 +1,5 @@
 public class gauss_seidel {
-    static final int maxIterations = 100;
+    static final int maxIterations = 100000;
     public static Matrix gauss_seidel(Matrix mb, Matrix x0, double tol) {
         System.out.println("-------------------------------------");
         System.out.println("Gauss-Seidel");
@@ -64,8 +64,10 @@ public class gauss_seidel {
             //System.out.println(error);
         }
         //System.out.println("x = " + result);
-        System.out.println("Converges based on tolerance after "+
-            k + " iterations");
+        if (k <= maxIterations) {
+            System.out.println("Converges based on tolerance after "+
+                k + " iterations");
+        }
         //jacobi method
         //xk+1 = S^-1 * T * xk + S^-1 * b
         return result;

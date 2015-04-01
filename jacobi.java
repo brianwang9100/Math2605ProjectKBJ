@@ -1,5 +1,5 @@
 public class jacobi {
-    static final int maxIterations = 50;
+    static final int maxIterations = 100000;
     public static Matrix jacobi(Matrix mb, Matrix x0, double tol) {
         System.out.println("-------------------------------------");
         System.out.println("Jacobi");
@@ -13,7 +13,7 @@ public class jacobi {
                 if (col == mb.width - 1) {
                     b.set(row, 0, mb.get(row, col));
                 } else {
-                    m.set(row, 0, mb.get(row, col));
+                    m.set(row, col, mb.get(row, col));
                 }
             }
         }
@@ -48,6 +48,7 @@ public class jacobi {
                     if (row != col) {
                         omega += (m.get(row, col) * xk.get(col, 0));
                     }
+                    omega = Math.abs(omega % 2);
                 }
                 if (row < m.height && row < m.width) {
                     result.set(row, 0,
