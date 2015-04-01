@@ -7,12 +7,15 @@ Karl Nicodemus
 --------------------------------------------------------------------------------
 Leslie Power Method (Part 3)
 --------------------------------------------------------------------------------
+Please place your .dat file in the root of the folder.
+Your .dat files should contain a matrix with values seperated by a space.
 -----------------------------
 1. Power Method
 
 power_method:
 Input: name of .dat file for n x n matrix, tolerance level in decimal format
 Output: number of iterations, eigenvalue, eigenvector
+
 
 To execute PowerMethod (decoding.java)
 javac power_method.java

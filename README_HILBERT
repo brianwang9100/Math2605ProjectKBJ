@@ -7,15 +7,14 @@ Karl Nicodemus
 --------------------------------------------------------------------------------
 Hilbert (Part 1)
 --------------------------------------------------------------------------------
+Please place your .dat file in the root of the folder.
+Your .dat files should contain a matrix with values seperated by a space.
 -----------------------------
 1. lu_fact
 
 Input: name of .dat file (Matrix A)
 Output: Matrix A, Matrix L, Matrix U, ||LU - A|| Error
 
-
-Please place your .dat file in the root of the folder.
-Your .dat files should contain a matrix with values seperated by a space.
 
 To execute LU (lu_fact)
 javac lu_fact.java
@@ -28,7 +27,6 @@ e.g. To open a.dat, type "a.dat".
 -----------------------------
 2. HouseHolder and Givens LU
 
-
 qr_fact_househ
 Input: name of .dat file
 Output: Matrix A, Matrix Q, Matrix R, ||QR - A|| Error
@@ -37,8 +35,6 @@ qr_fact_givens
 Input: name of .dat file
 Output: Matrix A, Matrix Q, Matrix R, ||QR - A|| Error
 
-Please place your .dat file in the root of the folder.
-Your .dat files should contain a matrix with values seperated by a space.
 
 To execute HouseHoulder (qr_fact_househ.java)
 javac qr_fact_househ.java
@@ -87,6 +83,7 @@ Output:
 LU: Matrices A, L, U, ||LU - H|| error, Vector xSol, ||Hx - b|| error
 HH: Matrices A, Q, R, ||QR - H|| error, Vector xSol, ||Hx - b|| error
 G:  Matrices A, Q, R, ||QR - H|| error, Vector xSol, ||Hx - b|| error
+
 
 To execute Hilbert (hilbert_driver.java)
 javac solve_lu_b.java

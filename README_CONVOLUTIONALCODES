@@ -7,12 +7,15 @@ Karl Nicodemus
 --------------------------------------------------------------------------------
 Convolutional Codes (Part 2)
 --------------------------------------------------------------------------------
+Please place your .dat file in the root of the folder.
+Your .dat files should contain a matrix with values seperated by a space.
 -----------------------------
 1. Encoding
 
 encoding:
 Input: size of stream x
 Output: stream y
+
 
 To execute Encoding (encoding.java)
 javac encoding.java
@@ -30,6 +33,7 @@ Output: number of iterations, solution Vector x
 gauss_seidel
 Input: name of .dat file for augmented matrix A|b, name of .dat file for vector x0, and tolerance in DECIMAL FORM.
 Output: number of iterations, solution Vector x
+
 
 To execute Jacobi (jacobi.java)
 javac jacobi.java)
@@ -54,6 +58,7 @@ IMPORTANT: By default the programs are run in base 10.
 decoding:
 Input: stream y
 Output: stream x (with Jacobi), stream x (with Gauss-Siedel)
+
 
 To execute Decoding (decoding.java)
 javac decoding.java
