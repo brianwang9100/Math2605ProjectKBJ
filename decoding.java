@@ -63,7 +63,7 @@ public class decoding {
                 }
             }
         }
-        System.out.println(jacobi.jacobi(aug, new Matrix(x0), .00000001).toStringBinaryCropFirst());
+        System.out.println(jacobi.jacobi(aug, new Matrix(x0), .00000001, true).toStringBinaryCropFirst());
         System.out.println(gauss_seidel.gauss_seidel(aug, new Matrix(x0), .00000001).toStringBinaryCropFirst());
     }
 }

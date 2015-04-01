@@ -41,7 +41,7 @@ public class convolutional_codes_driver {
         System.out.println();
         System.out.print("(ConvolutionalCodes) Enter the error tolerance number: ");
         double tol = Double.parseDouble(s.nextLine());
-        jacobi.jacobi(ab, x0, tol);
+        System.out.println("yoo: "+jacobi.jacobi(ab, x0, tol, false));
         gauss_seidel.gauss_seidel(ab, x0, tol);
 
         System.out.println("(ConvolutionalCodes) Enter the numbers for the y input string"

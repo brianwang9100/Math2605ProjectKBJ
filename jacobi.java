@@ -1,6 +1,6 @@
 public class jacobi {
     static final int maxIterations = 100000;
-    public static Matrix jacobi(Matrix mb, Matrix x0, double tol) {
+    public static Matrix jacobi(Matrix mb, Matrix x0, double tol, boolean isBinary) {
         System.out.println("-------------------------------------");
         System.out.println("Jacobi");
         System.out.println("-------------------------------------");
@@ -51,9 +51,15 @@ public class jacobi {
                     omega = Math.abs(omega);
                 }
                 if (row < m.height && row < m.width) {
-                    result.set(row, 0,
-                        Math.abs(((b.get(row, 0) - omega) /
-                            m.get(row, row))));
+                    if (isBinary) {
+                        result.set(row, 0,
+                            Math.abs(((b.get(row, 0) - omega) /
+                                m.get(row, row))));
+                    } else {
+                        result.set(row, 0,
+                            Math.abs(((b.get(row, 0) - omega) /
+                                m.get(row, row)) % 2));
+                    }
                 }
             }
             curValue = MatrixAlgebra.magnitudeVector(result);
@@ -61,7 +67,7 @@ public class jacobi {
             error = Math.abs(curValue - prevValue);
         }
         if (k <= maxIterations) {
-            System.out.println("Converges based on tolerance after "+
+            System.out.println("Converges based on tolerance after " +
                 k + " iterations");
         }
         return xk;
