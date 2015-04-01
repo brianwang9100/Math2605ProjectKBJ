@@ -1,5 +1,4 @@
 public class jacobi {
-<<<<<<< HEAD
     static final int maxIterations = 50;
     public static Matrix jacobi(Matrix mb, Matrix x0, double tol) {
         System.out.println("-------------------------------------");
@@ -13,9 +12,8 @@ public class jacobi {
             for (int col = 0; col < mb.width; col++) {
                 if (col == mb.width - 1) {
                     b.set(row, 0, mb.get(row, col));
-=======
     public static double jacobi(Matrix m, Matrix b, double tol) {
-        /*//set l d and u
+        //set l d and u
 
         //s = d
         Matrix s = new Matrix(
@@ -27,7 +25,6 @@ public class jacobi {
             for (int col = 0; col < m.width; col++) {
                 if (col == row) {
                     s.set(row, col, m.get[row, col]);
->>>>>>> origin/master
                 } else {
                     m.set(row, col, mb.get(row, col));
                 }
