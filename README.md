@@ -113,7 +113,7 @@ To execute Encoding (encoding.java)
 javac encoding.java
 java encoding
 
-The program should prompt for the size of the stream. Please input the size of the desired stream (int). The program should randomly generate a stream x and output it's encoded stream y.
+The program should prompt for the size of the stream. Please input the size of the desired stream (int). The program should randomly generate a stream x and output its encoded stream y.
 
 -----------------------------
 2. Decoding with Jacobi and Gauss-Siedel
@@ -126,4 +126,6 @@ To execute Decoding (decoding.java)
 javac decoding.java
 java decoding
 
-The program should prompt for a stream. Please type out the 
+The program should prompt for a stream. Please type out the the stream seperating each term with a space. The program should output its decoded stream x
+
+e.g 10 00 01 11 00 11 10 01 10 11 00 01
