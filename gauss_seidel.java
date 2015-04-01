@@ -34,7 +34,7 @@ public class gauss_seidel {
                                     System.exit(0);
                                 } else {
                                     double tol = Double.parseDouble(input);
-                                    gauss_seidel(Ab, x0, tol);
+                                    gauss_seidel(Ab, x0, tol, false);
                                     done2 = true;
                                 }
                             } catch(NumberFormatException e) {
@@ -53,7 +53,7 @@ public class gauss_seidel {
             }
         }
     }
-    public static Matrix gauss_seidel(Matrix mb, Matrix x0, double tol) {
+    public static Matrix gauss_seidel(Matrix mb, Matrix x0, double tol, boolean isBinary) {
         System.out.println("-------------------------------------");
         System.out.println("Gauss-Seidel");
         System.out.println("-------------------------------------");
@@ -105,9 +105,15 @@ public class gauss_seidel {
                 }
                 //System.out.println(m);
                 if (row < m.height && row < m.width) {
-                    result.set(row, 0,
-                        Math.abs(((b.get(row, 0) - omega) /
-                            m.get(row, row)) % 2));
+                    if (isBinary) {
+                        result.set(row, 0,
+                            Math.abs(((b.get(row, 0) - omega) /
+                                m.get(row, row)) % 2));
+                    } else {
+                        result.set(row, 0,
+                            (b.get(row, 0) - omega) /
+                                m.get(row, row));
+                    }
                 }
             }
             curValue = MatrixAlgebra.magnitudeVector(result);
