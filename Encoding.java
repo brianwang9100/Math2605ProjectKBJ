@@ -1,5 +1,5 @@
 import java.util.LinkedList;
-public class Encoding {
+public class encoding {
     public static void encoding(int n) {
         //make random stream x
         Matrix x = new Matrix(new double[n + 3][1]);
