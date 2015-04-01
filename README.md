@@ -116,15 +116,32 @@ java encoding
 The program should prompt for the size of the stream. Please input the size of the desired stream (int). The program should randomly generate a stream x and output its encoded stream y.
 
 -----------------------------
-2. Jacobi and Gauss-Siedel algorithm
+2. Jacobi and Gauss-Seidel algorithm
+
+jacobi:
+Input: name of .dat file for augmented matrix A|b, name of .dat file for vector x0, and tolerance in DECIMAL FORM.
+Output: number of iterations, solution Vector x
+
+gauss_seidel
+Input: name of .dat file for augmented matrix A|b, name of .dat file for vector x0, and tolerance in DECIMAL FORM.
+Output: number of iterations, solution Vector x
 
 To execute Jacobi (jacobi.java)
 javac jacobi.java)
 java jacobi
 
 To execute Gauss-Siedel (gauss_seidel.java)
-javac gauss_seidel..java)
-java gauss_seidel.
+javac gauss_seidel.java)
+java gauss_seidel
+
+Each program should prompt for the name of your files for A|b and x0. Enter the file name (including the .dat extention) and press enter.
+e.g. To open a.dat, type "a.dat".
+
+Then the program should prompt for the tolerance number. Enter the tolerance in DECIMAL format.
+
+e.g. 0.00000001 NOT 10^-8.
+
+IMPORTANT: By default the programs are run in base 10.
 
 -----------------------------
 3. Decoding with Jacobi and Gauss-Seidel
@@ -140,6 +157,8 @@ java decoding
 The program should prompt for a stream. Please type out the the stream seperating each term with a space. The program should output its decoded stream x with jacobi and gauss-seidel.
 
 e.g input = "10 00 01 11 00 11 10 01 10 11 00 01"
+
+IMPORTANT: By default the program is run in binary.
 
 -----------------------------
 4. Discussion
