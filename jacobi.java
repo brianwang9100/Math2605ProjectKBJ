@@ -48,12 +48,12 @@ public class jacobi {
                     if (row != col) {
                         omega += (m.get(row, col) * xk.get(col, 0));
                     }
-                    omega = Math.abs(omega % 2);
+                    omega = Math.abs(omega);
                 }
                 if (row < m.height && row < m.width) {
                     result.set(row, 0,
                         Math.abs(((b.get(row, 0) - omega) /
-                            m.get(row, row)) % 2));
+                            m.get(row, row))));
                 }
             }
             curValue = MatrixAlgebra.magnitudeVector(result);

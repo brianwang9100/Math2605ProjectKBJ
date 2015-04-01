@@ -1,6 +1,31 @@
 import java.util.LinkedList;
+import java.util.Scanner;
 public class encoding {
     public static Matrix y, y0, y1, a0, a1;
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        while(true) {
+            System.out.println(
+                "(ConvolutionalCodes) " +
+                "Enter a length for binary stream x: ");
+            System.out.println(
+                    "(ConvolutionalCodes) " +
+                    "Type NO to exit ");
+            try {
+                String input = s.nextLine();
+                if (input.equals("NO")) {
+                    System.exit(0);
+                } else {
+                    int n = Integer.parseInt(input);
+                    encoding(n);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input");
+            }
+        }
+    }
+
     public static void encoding(int n) {
         System.out.println("-------------------------------------");
         System.out.println("Encoding");
@@ -72,5 +97,8 @@ public class encoding {
                 + (int) y1.get(i, 0) + " ");
             y.set(i, 0, y0.get(i, 0) * 10 + y1.get(i, 0));
         }
+        System.out.println();
+        System.out.println();
+
     }
 }
