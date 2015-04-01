@@ -1,9 +1,13 @@
 public class gauss_seidel {
+<<<<<<< HEAD
     static final int maxIterations = 100;
     public static Matrix gauss_seidel(Matrix mb, Matrix x0, double tol) {
         System.out.println("-------------------------------------");
         System.out.println("Gauss-Seidel");
         System.out.println("-------------------------------------");
+=======
+    public static double gauss_seidel(Matrix m, Matrix b, double tol) {
+>>>>>>> origin/master
         double error = tol;
         double prevValue;
         double curValue = 0;
