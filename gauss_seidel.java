@@ -1,5 +1,58 @@
+import java.util.Scanner;
+import java.io.IOException;
+import java.util.InputMismatchException;
 public class gauss_seidel {
     static final int maxIterations = 100000;
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        while(true) {
+            try {
+                System.out.println("(Gauss-Seidel) Enter name of the file to be read for augmented matrix A|b");
+                System.out.println("(Gauss-Seidel) Type NO to quit");
+                String name = scanner.nextLine();
+                if (name.equals("NO")) {
+                    System.exit(0);
+                }
+                Matrix Ab = MatrixReader.readFile(name);
+                boolean done1 = false;
+                while(!done1) {
+                    try {
+                        System.out.println("(Gauss-Seidel) Enter name of the file to be read for initial vector x0");
+                        System.out.println("(Gauss-Seidel) Type NO to quit");
+                        String input1 = scanner.nextLine();
+                        if (input1.equals("NO")) {
+                            System.exit(0);
+                        }
+                        Matrix x0 = MatrixReader.readFile(input1);
+                        boolean done2 = false;
+                        while (!done2) {
+                            System.out.println("(Gauss-Seidel) Enter the tolerance in DECIMAL FORM");
+                            System.out.println("(Gauss-Seidel) Type NO to exit");
+                            try {
+                                String input = scanner.nextLine();
+                                if (input.equals("NO")) {
+                                    System.exit(0);
+                                } else {
+                                    double tol = Double.parseDouble(input);
+                                    gauss_seidel(Ab, x0, tol);
+                                    done2 = true;
+                                }
+                            } catch(NumberFormatException e) {
+                                System.out.println("Invalid input");
+                            }
+                        }
+                        done1 = true;
+                    } catch(IOException e) {
+                        System.out.println("File name not valid");
+                        System.out.println();
+                    }
+                }
+            } catch(IOException e) {
+                System.out.println("File name not valid");
+                System.out.println();
+            }
+        }
+    }
     public static Matrix gauss_seidel(Matrix mb, Matrix x0, double tol) {
         System.out.println("-------------------------------------");
         System.out.println("Gauss-Seidel");
@@ -67,6 +120,7 @@ public class gauss_seidel {
         if (k <= maxIterations) {
             System.out.println("Converges based on tolerance after "+
                 k + " iterations");
+            System.out.println();
         }
         //jacobi method
         //xk+1 = S^-1 * T * xk + S^-1 * b
