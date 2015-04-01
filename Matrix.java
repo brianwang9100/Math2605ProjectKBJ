@@ -121,6 +121,64 @@ public class Matrix {
         return finalList;
     }
 
+    public String toStringStream() {
+        String finalList = "";
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                finalList = finalList + (int) matrix[row][col];
+            }
+            finalList += " ";
+        }
+        return finalList;
+    }
+
+    public String toStringStreamCropLast() {
+        String finalList = "";
+        for (int row = 0; row < height - 3; row++) {
+            for (int col = 0; col < width; col++) {
+                finalList = finalList + (int) matrix[row][col];
+            }
+            finalList += " ";
+        }
+        return finalList;
+    }
+
+    public String toStringBinary() {
+        String finalList = "";
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                finalList = finalList + (int) matrix[row][col] + 
+                " ";
+            }
+            finalList += "\n";
+        }
+        return finalList;
+    }
+
+    public String toStringBinaryCropFirst() {
+        String finalList = "";
+        for (int row = 3; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                finalList = finalList + (int) matrix[row][col] + 
+                " ";
+            }
+            finalList += "\n";
+        }
+        return finalList;
+    }
+
+    public String toStringBinaryCropLast() {
+        String finalList = "";
+        for (int row = 0; row < height - 3; row++) {
+            for (int col = 0; col < width; col++) {
+                finalList = finalList + (int) matrix[row][col] + 
+                " ";
+            }
+            finalList += "\n";
+        }
+        return finalList;
+    }
+
     public double[][] toArray(){
         return matrix;
     }

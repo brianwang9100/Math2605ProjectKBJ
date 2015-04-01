@@ -1,9 +1,12 @@
 public class gauss_seidel {
-    public static int gauss_seidel(Matrix mb, Matrix x0, double tol) {
+    static final int maxIterations = 100;
+    public static Matrix gauss_seidel(Matrix mb, Matrix x0, double tol) {
+        System.out.println("-------------------------------------");
+        System.out.println("Gauss-Seidel");
+        System.out.println("-------------------------------------");
         double error = tol;
         double prevValue;
         double curValue = 0;
-        //double[][] resultArr = {{1}, {1}};
         int k = 0;
         if (x0.height != mb.height) {
             Matrix temp = new Matrix(new double[mb.height][1]);
@@ -16,12 +19,10 @@ public class gauss_seidel {
             }
             x0 = temp;
         }
-        //System.out.println(x0);
         Matrix result = x0;
 
         Matrix m = new Matrix(
             new double[mb.height][mb.width - 1]);
-        //t = l + u
         Matrix b = new Matrix(
             new double[m.height][1]);
         for (int row = 0; row < mb.height; row++) {
@@ -36,6 +37,10 @@ public class gauss_seidel {
 
         while (error >= tol) {
             k++;
+            if (k > maxIterations) {
+                System.out.println("Does not converge after" + maxIterations + " iterations");
+                break;
+            }
             double omega;
             prevValue = curValue;
             for (int row = 0; row < m.height; row++) {
@@ -46,8 +51,11 @@ public class gauss_seidel {
                     }
                 }
                 //System.out.println(m);
-                result.set(row, 0,
-                    Math.abs(((b.get(row, 0) - omega) / m.get(row, row)) % 2));
+                if (row < m.height && row < m.width) {
+                    result.set(row, 0,
+                        Math.abs(((b.get(row, 0) - omega) /
+                            m.get(row, row)) % 2));
+                }
             }
             curValue = MatrixAlgebra.magnitudeVector(result);
             //System.out.println(result);
@@ -55,19 +63,21 @@ public class gauss_seidel {
             //System.out.println("Error:" + error);
             //System.out.println(error);
         }
-        System.out.println("x = " + result);
-        return k;
+        //System.out.println("x = " + result);
+        System.out.println("Converges based on tolerance after "+
+            k + " iterations");
         //jacobi method
         //xk+1 = S^-1 * T * xk + S^-1 * b
+        return result;
     }
     public static void main(String[] args) {
         //double[][] matrix1 = {{8, 2, 9}, {4, 9, 4}, {6, 7, 9}};
         //double[][] matrix2 = {{3}, {4}, {5}};
-        double[][] matrix1 = {{16, 3, 11}, {7, -11, 13}};
-        double[][] x0 = {{1}, {1}};
+        //double[][] matrix1 = {{16, 3, 11}, {7, -11, 13}};
+        //double[][] x0 = {{1}, {1}};
         //double[][] matrix2 = {{11}, {13}};
-        Matrix m = new Matrix(matrix1);
+        //Matrix m = new Matrix(matrix1);
         //Matrix b = new Matrix(matrix2);
-        System.out.println(gauss_seidel(m, new Matrix(x0), .2));
+        //System.out.println(gauss_seidel(m, new Matrix(x0), .2));
     }
 }

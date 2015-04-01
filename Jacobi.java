@@ -1,8 +1,11 @@
 public class jacobi {
-    public static int jacobi(Matrix mb, Matrix x0, double tol) {
+    static final int maxIterations = 50;
+    public static Matrix jacobi(Matrix mb, Matrix x0, double tol) {
+        System.out.println("-------------------------------------");
+        System.out.println("Jacobi");
+        System.out.println("-------------------------------------");
         Matrix m = new Matrix(
             new double[mb.height][mb.width - 1]);
-        //t = l + u
         Matrix b = new Matrix(
             new double[m.height][1]);
         for (int row = 0; row < mb.height; row++) {
@@ -14,6 +17,17 @@ public class jacobi {
                 }
             }
         }
+        if (x0.height != mb.height) {
+            Matrix temp = new Matrix(new double[mb.height][1]);
+            for (int j = 0; j < mb.height; j++) {
+                if (j >= x0.height) {
+                    temp.set(j, 0, 0);
+                } else {
+                    temp.set(j, 0, x0.get(j, 0));
+                }
+            }
+            x0 = temp;
+        }
         double error = tol;
         double prevValue;
         double curValue = 0;
@@ -21,6 +35,10 @@ public class jacobi {
         Matrix xk = x0;
         while (error >= tol) {
             k++;
+            if (k > maxIterations) {
+                System.out.println("Does not converge after " + maxIterations + " iterations");
+                break;
+            }
             double omega;
             Matrix result = new Matrix(new double[m.height][1]);
             prevValue = curValue;
@@ -31,25 +49,30 @@ public class jacobi {
                         omega += (m.get(row, col) * xk.get(col, 0));
                     }
                 }
-                result.set(row, 0,
-                    (b.get(row, 0) - omega) / m.get(row, row));
+                if (row < m.height && row < m.width) {
+                    result.set(row, 0,
+                        Math.abs(((b.get(row, 0) - omega) /
+                            m.get(row, row)) % 2));
+                }
             }
             curValue = MatrixAlgebra.magnitudeVector(result);
             xk = result;
             error = Math.abs(curValue - prevValue);
         }
-        return k;
-        //jacobi method
-        //xk+1 = S^-1 * T * xk + S^-1 * b
+        if (k <= maxIterations) {
+            System.out.println("Converges based on tolerance after "+
+                k + " iterations");
+        }
+        return xk;
     }
     public static void main(String[] args) {
         //double[][] matrix1 = {{8, 2, 9}, {4, 9, 4}, {6, 7, 9}};
         //double[][] matrix2 = {{3}, {4}, {5}};
-        double[][] x0 = {{1}, {1}};
-        double[][] matrix = {{2, 1, 11}, {5, 7, 13}};
+        //double[][] x0 = {{1}, {1}};
+        //double[][] matrix = {{2, 1, 11}, {5, 7, 13}};
         //double[][] matrix2 = {{11}, {13}};
-        Matrix mb = new Matrix(matrix);
+        //Matrix mb = new Matrix(matrix);
         //Matrix b = new Matrix(matrix2);
-        System.out.println(jacobi(mb, new Matrix(x0), .2));
+        //System.out.println(jacobi(mb, new Matrix(x0), .2));
     }
 }

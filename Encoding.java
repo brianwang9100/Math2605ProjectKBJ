@@ -1,7 +1,10 @@
 import java.util.LinkedList;
 public class encoding {
-    public static Matrix y0, y1, a0, a1;
-    public static Matrix encoding(int n) {
+    public static Matrix y, y0, y1, a0, a1;
+    public static void encoding(int n) {
+        System.out.println("-------------------------------------");
+        System.out.println("Encoding");
+        System.out.println("-------------------------------------");
         //make random stream x
         Matrix x = new Matrix(new double[n + 3][1]);
         for (int i = 0; i < 3; i++) {
@@ -10,7 +13,7 @@ public class encoding {
         for (int i = 0; i < n; i++) {
             x.set(i, 0, (int)(Math.random() * 2));
         }
-        System.out.println("x = " + x);
+        System.out.println("x = " + x.toStringStreamCropLast() + "\n");
         /*
         //testing
         double[][] xArr = {{0},{0},{0},{1},{0},{1},{1},{0}};
@@ -33,6 +36,7 @@ public class encoding {
             a0index2++;
             a0index3++;
         }
+        //System.out.println("A0 = \n" + a0.toStringBinary());
         a1 = new Matrix(new double[n + 3][n + 3]);
         int a1index1 = 0;
         int a1index2 = 2;
@@ -50,28 +54,23 @@ public class encoding {
             a1index2++;
             a1index3++;
         }
+        //System.out.println("A1 = \n" + a1.toStringBinary());
         y0 = MatrixAlgebra.matrixMultiply(a0, x);
         //mod by 2
         for (int i = 0; i < y0.height; i++) {
             y0.set(i, 0, y0.get(i, 0) % 2);
         }
-        //System.out.println(y0);
-
         y1 = MatrixAlgebra.matrixMultiply(a1, x);
         //mod by 2
         for (int i = 0; i < y1.height; i++) {
             y1.set(i, 0, y1.get(i, 0) % 2);
         }
-        //System.out.println(y1);
-        Matrix y = new Matrix(new double[y0.height][1]);
-        for (int i = 0; i < y0.height; i++) {
-            System.out.println("" + (int) y0.get(i, 0)
-                + (int) y1.get(i, 0));
+        System.out.print("y = ");
+        y = new Matrix(new double[y0.height][1]);
+        for (int i = 0; i < y0.height - 3; i++) {
+            System.out.print("" + (int) y0.get(i, 0)
+                + (int) y1.get(i, 0) + " ");
             y.set(i, 0, y0.get(i, 0) * 10 + y1.get(i, 0));
         }
-        return y;
-    }
-    public static void main(String[] args) {
-        System.out.println(encoding(5));
     }
 }

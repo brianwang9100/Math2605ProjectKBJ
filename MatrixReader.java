@@ -5,20 +5,26 @@ import java.nio.file.Paths;
 
 public class MatrixReader {
     //only stores data from a.dat currently
-    public static Matrix readFile() throws IOException {
-        double[][] numArray = new double[4][4];
-        int row = 0;
-        int col = 0;
-        for (String line : Files.readAllLines(Paths.get("a.dat"))) {
-            for (String part : line.split(" ")) {
-                numArray[row][col] = Double.valueOf(part);
-                col++;
+    /*public static Matrix readFile() {
+        try {
+            double[][] numArray = new double[4][4];
+            int row = 0;
+            int col = 0;
+            for (String line : Files.readAllLines(Paths.get("a.dat"))) {
+                for (String part : line.split(" ")) {
+                    numArray[row][col] = Double.valueOf(part);
+                    col++;
+                }
+                col = 0;
+                row++;
             }
-            col = 0;
-            row++;
+            return new Matrix(numArray);
+        } catch (IOException e) {
+            System.out.println("Improper file or path inputted");
+            System.exit(0);
         }
-        return new Matrix(numArray);
-    }
+        return null;
+    }*/
     public static Matrix readFile(Path path) throws IOException {
         double[][] numArray;
         int row = 0;
@@ -45,13 +51,6 @@ public class MatrixReader {
     }
     public static Matrix readFile(String s) throws IOException {
         return readFile(Paths.get(s));
-    }
-    public static void main(String[] args) {
-        try {
-            System.out.print(readFile());
-        } catch (IOException e) {
-            System.out.println("Input threw IOException");
-        }
     }
 
     public static Matrix convertToA(Matrix Ab) {
