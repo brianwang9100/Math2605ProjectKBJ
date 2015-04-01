@@ -37,8 +37,8 @@ qr_fact_givens
 Input: name of .dat file
 Output: Matrix A, Matrix Q, Matrix R, ||QR - A|| Error
 
--Please place your .dat file in the root of the folder.
--Your .dat files should contain a matrix with values seperated by a space.
+Please place your .dat file in the root of the folder.
+Your .dat files should contain a matrix with values seperated by a space.
 
 To execute HouseHoulder (qr_fact_househ.java)
 javac qr_fact_househ.java
@@ -116,7 +116,12 @@ java encoding
 The program should prompt for the size of the stream. Please input the size of the desired stream (int). The program should randomly generate a stream x and output its encoded stream y.
 
 -----------------------------
-2. Decoding with Jacobi and Gauss-Siedel
+2. Jacobi and Gauss-Siedel algorithm
+
+To view our code, please open jacobi.java and gauss_seidel.java.
+
+-----------------------------
+3. Decoding with Jacobi and Gauss-Seidel
 
 decoding:
 Input: stream y
@@ -129,3 +134,35 @@ java decoding
 The program should prompt for a stream. Please type out the the stream seperating each term with a space. The program should output its decoded stream x
 
 e.g 10 00 01 11 00 11 10 01 10 11 00 01
+
+-----------------------------
+4. Discussion
+Please open the file: ConvolutionalCodesDiscussion.pdf
+
+--------------------------------------------------------------------------------
+Convolutional Codes (Part 2)
+--------------------------------------------------------------------------------
+-----------------------------
+1. Power Method
+
+power_method:
+Input: name of .dat file for n x n matrix, tolerance level in decimal format
+Output: number of iterations, eigenvalue, eigenvector
+
+To execute PowerMethod (decoding.java)
+javac power_method.java
+java power_method
+
+Each program should prompt for the name of your file. Enter the file name (including the .dat extention) and press enter.
+
+e.g. To open a.dat, type "a.dat".
+
+Then the program should prompt for the tolerance number. Enter the tolerance in DECIMAL format.
+
+e.g. 0.00000001 NOT 10^-8.
+
+The program uses initial u0 of (1, 1, 1, ...., 1)^t
+
+-----------------------------
+2. Dicussion
+Please open the file: UrbanPopulationDynamics.pdf
