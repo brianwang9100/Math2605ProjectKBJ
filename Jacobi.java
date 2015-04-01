@@ -12,21 +12,8 @@ public class jacobi {
             for (int col = 0; col < mb.width; col++) {
                 if (col == mb.width - 1) {
                     b.set(row, 0, mb.get(row, col));
-    public static double jacobi(Matrix m, Matrix b, double tol) {
-        //set l d and u
-
-        //s = d
-        Matrix s = new Matrix(
-            new double[m.height][m.width]);
-        //t = l + u
-        Matrix t = new Matrix(
-            new double[m.height][m.width]);
-        for (int row = 0; row < m.height; row++) {
-            for (int col = 0; col < m.width; col++) {
-                if (col == row) {
-                    s.set(row, col, m.get[row, col]);
                 } else {
-                    m.set(row, col, mb.get(row, col));
+                    m.set(row, 0, mb.get(row, col));
                 }
             }
         }

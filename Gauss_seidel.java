@@ -4,7 +4,6 @@ public class gauss_seidel {
         System.out.println("-------------------------------------");
         System.out.println("Gauss-Seidel");
         System.out.println("-------------------------------------");
-    public static double gauss_seidel(Matrix m, Matrix b, double tol) {
         double error = tol;
         double prevValue;
         double curValue = 0;
@@ -70,15 +69,5 @@ public class gauss_seidel {
         //jacobi method
         //xk+1 = S^-1 * T * xk + S^-1 * b
         return result;
-    }
-    public static void main(String[] args) {
-        //double[][] matrix1 = {{8, 2, 9}, {4, 9, 4}, {6, 7, 9}};
-        //double[][] matrix2 = {{3}, {4}, {5}};
-        //double[][] matrix1 = {{16, 3, 11}, {7, -11, 13}};
-        //double[][] x0 = {{1}, {1}};
-        //double[][] matrix2 = {{11}, {13}};
-        //Matrix m = new Matrix(matrix1);
-        //Matrix b = new Matrix(matrix2);
-        //System.out.println(gauss_seidel(m, new Matrix(x0), .2));
     }
 }
