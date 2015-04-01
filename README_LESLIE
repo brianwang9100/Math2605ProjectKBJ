@@ -1,0 +1,33 @@
+--------------------------------------------------------------------------------
+Math2605Project
+Brian Wang
+Wei Wang
+Karl Nicodemus
+
+--------------------------------------------------------------------------------
+Leslie Power Method (Part 3)
+--------------------------------------------------------------------------------
+-----------------------------
+1. Power Method
+
+power_method:
+Input: name of .dat file for n x n matrix, tolerance level in decimal format
+Output: number of iterations, eigenvalue, eigenvector
+
+To execute PowerMethod (decoding.java)
+javac power_method.java
+java power_method
+
+Each program should prompt for the name of your file. Enter the file name (including the .dat extention) and press enter.
+
+e.g. To open a.dat, type "a.dat".
+
+Then the program should prompt for the tolerance number. Enter the tolerance in DECIMAL format.
+
+e.g. 0.00000001 NOT 10^-8.
+
+The program uses initial u0 of (1, 1, 1, ...., 1)^t
+
+-----------------------------
+2. Dicussion
+Please open the file: UrbanPopulationDynamics.pdf
