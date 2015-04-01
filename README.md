@@ -126,4 +126,4 @@ To execute Decoding (decoding.java)
 javac decoding.java
 java decoding
 
-The program should
+The program should prompt for a stream. Please type out the 
