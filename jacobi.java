@@ -1,5 +1,59 @@
+import java.util.Scanner;
+import java.io.IOException;
+import java.util.InputMismatchException;
 public class jacobi {
     static final int maxIterations = 100000;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        while(true) {
+            try {
+                System.out.println("(Jacobi) Enter name of the file to be read for augmented matrix A|b");
+                System.out.println("(Jacobi) Type NO to quit");
+                String name = scanner.nextLine();
+                if (name.equals("NO")) {
+                    System.exit(0);
+                }
+                Matrix Ab = MatrixReader.readFile(name);
+                boolean done1 = false;
+                while(!done1) {
+                    try {
+                        System.out.println("(Jacobi) Enter name of the file to be read for initial vector x0");
+                        System.out.println("(Jacobi) Type NO to quit");
+                        String input1 = scanner.nextLine();
+                        if (input1.equals("NO")) {
+                            System.exit(0);
+                        }
+                        Matrix x0 = MatrixReader.readFile(input1);
+                        boolean done2 = false;
+                        while (!done2) {
+                            System.out.println("(Jacobi) Enter the tolerance in DECIMAL FORM");
+                            System.out.println("(Jacobi) Type NO to exit");
+                            try {
+                                String input = scanner.nextLine();
+                                if (input.equals("NO")) {
+                                    System.exit(0);
+                                } else {
+                                    double tol = Double.parseDouble(input);
+                                    jacobi(Ab, x0, tol, false);
+                                    done2 = true;
+                                }
+                            } catch(NumberFormatException e) {
+                                System.out.println("Invalid input");
+                            }
+                        }
+                        done1 = true;
+                    } catch(IOException e) {
+                        System.out.println("File name not valid");
+                        System.out.println();
+                    }
+                }
+            } catch(IOException e) {
+                System.out.println("File name not valid");
+                System.out.println();
+            }
+        }
+    }
     public static Matrix jacobi(Matrix mb, Matrix x0, double tol, boolean isBinary) {
         System.out.println("-------------------------------------");
         System.out.println("Jacobi");
@@ -71,15 +125,5 @@ public class jacobi {
                 k + " iterations");
         }
         return xk;
-    }
-    public static void main(String[] args) {
-        //double[][] matrix1 = {{8, 2, 9}, {4, 9, 4}, {6, 7, 9}};
-        //double[][] matrix2 = {{3}, {4}, {5}};
-        //double[][] x0 = {{1}, {1}};
-        //double[][] matrix = {{2, 1, 11}, {5, 7, 13}};
-        //double[][] matrix2 = {{11}, {13}};
-        //Matrix mb = new Matrix(matrix);
-        //Matrix b = new Matrix(matrix2);
-        //System.out.println(jacobi(mb, new Matrix(x0), .2));
     }
 }

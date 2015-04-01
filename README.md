@@ -118,7 +118,13 @@ The program should prompt for the size of the stream. Please input the size of t
 -----------------------------
 2. Jacobi and Gauss-Siedel algorithm
 
-To view our code, please open jacobi.java and gauss_seidel.java.
+To execute Jacobi (jacobi.java)
+javac jacobi.java)
+java jacobi
+
+To execute Gauss-Siedel (gauss_seidel.java)
+javac gauss_seidel..java)
+java gauss_seidel.
 
 -----------------------------
 3. Decoding with Jacobi and Gauss-Seidel
@@ -131,9 +137,9 @@ To execute Decoding (decoding.java)
 javac decoding.java
 java decoding
 
-The program should prompt for a stream. Please type out the the stream seperating each term with a space. The program should output its decoded stream x
+The program should prompt for a stream. Please type out the the stream seperating each term with a space. The program should output its decoded stream x with jacobi and gauss-seidel.
 
-e.g 10 00 01 11 00 11 10 01 10 11 00 01
+e.g input = "10 00 01 11 00 11 10 01 10 11 00 01"
 
 -----------------------------
 4. Discussion
