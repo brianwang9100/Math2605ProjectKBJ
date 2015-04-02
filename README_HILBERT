@@ -86,8 +86,8 @@ G:  Matrices A, Q, R, ||QR - H|| error, Vector xSol, ||Hx - b|| error
 
 
 To execute Hilbert (hilbert_driver.java)
-javac solve_lu_b.java
-java solve_lu_b
+javac hilbert_driver.java
+java hilbert_driver
 
 The program should prompt for the size of the array. Enter the size of the array (int) and press enter.
 
