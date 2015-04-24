@@ -144,37 +144,37 @@ public class Matrix {
     }
 
     public String toStringBinary() {
-        String finalList = "";
+        String finalList = "x = ";
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 finalList = finalList + (int) matrix[row][col] +
                 " ";
             }
-            finalList += "\n";
+            //finalList += "\n";
         }
         return finalList;
     }
 
     public String toStringBinaryCropFirst() {
-        String finalList = "";
+        String finalList = "x = ";
         for (int row = 3; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 finalList = finalList + (int) matrix[row][col] +
                 " ";
             }
-            finalList += "\n";
+            //finalList += "\n";
         }
         return finalList;
     }
 
     public String toStringBinaryCropLast() {
-        String finalList = "";
+        String finalList = "x = ";
         for (int row = 0; row < height - 3; row++) {
             for (int col = 0; col < width; col++) {
                 finalList = finalList + (int) matrix[row][col] +
                 " ";
             }
-            finalList += "\n";
+            //finalList += "\n";
         }
         return finalList;
     }

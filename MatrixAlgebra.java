@@ -201,4 +201,21 @@ public class MatrixAlgebra {
         }
         return new Matrix(holder);
     }
+
+    public static Matrix invertLowerTriangular(Matrix m) {
+        double[][] l = m.toArray();
+        double sum;
+        int n = m.height;
+        for (int j = 0; j < n; j++) {
+            l[j][j] = 1.0/l[j][j];
+            for (int i = j + 1; i < n; i++) {
+                sum = 0.0;
+                for (int k = j; k < i; k++) {
+                    sum -= l[i][k]*l[k][j];
+                }
+                l[i][j] = sum/l[i][i];
+            }
+        }
+        return new Matrix(l);
+    }
 }

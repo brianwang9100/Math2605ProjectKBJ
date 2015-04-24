@@ -28,10 +28,10 @@ public class decoding {
     }
 
     public static void decoding(Matrix y) {
-        double[][] x0 = {{0}, {0}};
+        double[][] x0 = {{1}, {1}};
         double[][] arry0 = new double[y.height][1];
         for (int i = 0; i < y.height; i++) {
-            arry0[i][0] = y.get(i, 0) / 10;
+            arry0[i][0] = (int) y.get(i, 0) / 10;
         }
         Matrix y0 = new Matrix(arry0);
         Matrix a0 = new Matrix(new double[y0.height][y0.height]);

@@ -58,19 +58,29 @@ public class jacobi {
         System.out.println("-------------------------------------");
         System.out.println("Jacobi");
         System.out.println("-------------------------------------");
-        Matrix m = new Matrix(
+        //new
+        Matrix s = new Matrix(
+            new double[mb.height][mb.width - 1]);
+        Matrix t = new Matrix(
             new double[mb.height][mb.width - 1]);
         Matrix b = new Matrix(
-            new double[m.height][1]);
+            new double[mb.height][1]);
         for (int row = 0; row < mb.height; row++) {
             for (int col = 0; col < mb.width; col++) {
                 if (col == mb.width - 1) {
                     b.set(row, 0, mb.get(row, col));
+                } else if (col != row) {
+                    t.set(row, col, mb.get(row, col));
                 } else {
-                    m.set(row, col, mb.get(row, col));
+                    s.set(row, col, mb.get(row, col));
                 }
             }
         }
+        Matrix sInv = MatrixAlgebra.invertLowerTriangular(s);
+        Matrix sInvB = MatrixAlgebra.matrixMultiply(sInv, b);
+        Matrix negSInvT = MatrixAlgebra.scalarMultiply(
+            MatrixAlgebra.matrixMultiply(sInv, t), -1);
+
         if (x0.height != mb.height) {
             Matrix temp = new Matrix(new double[mb.height][1]);
             for (int j = 0; j < mb.height; j++) {
@@ -83,46 +93,32 @@ public class jacobi {
             x0 = temp;
         }
         double error = tol;
-        double prevValue;
-        double curValue = 0;
         int k = 0;
-        Matrix xk = x0;
+        Matrix result = x0;
+        Matrix prevResult;
         while (error >= tol) {
             k++;
+            prevResult = result;
             if (k > maxIterations) {
                 System.out.println("Does not converge after " + maxIterations + " iterations");
                 break;
             }
-            double omega;
-            Matrix result = new Matrix(new double[m.height][1]);
-            prevValue = curValue;
-            for (int row = 0; row < m.height; row++) {
-                omega = 0;
-                for (int col = 0; col < m.width; col++) {
-                    if (row != col) {
-                        omega += (m.get(row, col) * xk.get(col, 0));
-                    }
-                }
-                if (row < m.height && row < m.width) {
-                    if (isBinary) {
-                        result.set(row, 0,
-                            Math.abs(((b.get(row, 0) - omega) /
-                                m.get(row, row)) % 2));
-                    } else {
-                        result.set(row, 0,
-                            (b.get(row, 0) - omega) /
-                                m.get(row, row));
-                    }
-                }
+            result = MatrixAlgebra.matrixAdd(
+                MatrixAlgebra.matrixMultiply(
+                negSInvT, result), sInvB);
+
+            error = MatrixAlgebra.magnitudeVector(
+                MatrixAlgebra.matrixSubtract(result, prevResult));
+        }
+        if (isBinary) {
+            for (int row = 0; row < result.height; row++) {
+                result.set(row, 0, Math.abs(result.get(row, 0) % 2));
             }
-            curValue = MatrixAlgebra.magnitudeVector(result);
-            xk = result;
-            error = Math.abs(curValue - prevValue);
         }
         if (k <= maxIterations) {
             System.out.println("Converges based on tolerance after " +
                 k + " iterations");
         }
-        return xk;
+        return result;
     }
 }

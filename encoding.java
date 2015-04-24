@@ -35,10 +35,10 @@ public class encoding {
         for (int i = 0; i < 3; i++) {
             x.set(i, 0, 0);
         }
-        for (int i = 0; i < n; i++) {
+        for (int i = 3; i < n; i++) {
             x.set(i, 0, (int)(Math.random() * 2));
         }
-        System.out.println("x = " + x.toStringStreamCropLast() + "\n");
+        System.out.println(x.toStringBinaryCropFirst() + "\n");
         /*
         //testing
         double[][] xArr = {{0},{0},{0},{1},{0},{1},{1},{0}};
@@ -92,7 +92,7 @@ public class encoding {
         }
         System.out.print("y = ");
         y = new Matrix(new double[y0.height][1]);
-        for (int i = 0; i < y0.height - 3; i++) {
+        for (int i = 0; i < y0.height; i++) {
             System.out.print("" + (int) y0.get(i, 0)
                 + (int) y1.get(i, 0) + " ");
             y.set(i, 0, y0.get(i, 0) * 10 + y1.get(i, 0));
